@@ -38,6 +38,5 @@ class Monstruo:
 espada_de_arturo = CartaMagica("Espada de Arturo", "Incrementa en 200 el ataque de monstruos de tipo Guerrero.", "Guerrero", 200, "ataque")
 guerrero_valiente = Monstruo("Guerrero Valiente", "Guerrero", 1500, 1200)
 
-# Aplicar el efecto de la carta mágica al monstruo
 espada_de_arturo.aplicar_efecto(guerrero_valiente)
 print(guerrero_valiente)

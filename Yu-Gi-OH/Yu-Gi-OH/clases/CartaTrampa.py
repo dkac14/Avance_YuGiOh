@@ -2,13 +2,15 @@ from .Carta import Carta
 from .CartaMonstruo import CartaMonstruo
 
 class CartaTrampa(Carta):
-    def __init__(self, nombre, descripcion, tipo_atributo):
+    def __init__(self, nombre, descripcion, tipo):
         super().__init__(nombre, descripcion)
-        self.tipo = tipo_atributo
+        self.tipo = tipo
+        self.boca_arriba = False 
 
-    def impedirAtaque(self, Carta):
-        if isinstance(Carta,CartaMonstruo):
-            if Carta.elemento == self.tipo:
-                1-1
-                #Impedir ataque
+    def puede_bloquear(self, monstruo_atacante):
+        if (isinstance(monstruo_atacante, CartaMonstruo)):
+            return monstruo_atacante.elemento == self.tipo
+
+    def activar(self):
+        print(f"{self.nombre} se activa y bloquea el ataque.")
 

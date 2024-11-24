@@ -7,4 +7,3 @@ class TipoMonstruo(Enum):
     G = "Guerrero"
     B = "Bestia"
     O = "Demonio"
-    H = "Hidropotamo"

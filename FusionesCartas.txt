@@ -1,0 +1,54 @@
+Dragón de Ojos Rojos,Dragón de Fuego,Un dragón con ojos rojos que tiene gran poder de ataque. y Un dragón con llamas abrasadoras, su poder de ataque es imparable.
+Dragón de Ojos Rojos,Dragón del Trueno,Un dragón con ojos rojos que tiene gran poder de ataque. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero Legendario,Guerrero de Tierra,Un guerrero con una espada mágica que defiende el reino. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Guerrero Legendario,Guerrero de Acero,Un guerrero con una espada mágica que defiende el reino. y Un guerrero con armadura de acero, casi imbatible.
+Zombi Nocturno,Zombi de la Tumba,Un zombi que se mueve solo de noche, con gran resistencia. y Un zombi que revive desde las tumbas, y está dispuesto a atacar.
+Zombi Nocturno,Zombi Asesino,Un zombi que se mueve solo de noche, con gran resistencia. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Bestia de la Jungla,León Bestia,Una feroz bestia que se oculta en la jungla esperando su presa. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Bestia de la Jungla,Pantera Bestia,Una feroz bestia que se oculta en la jungla esperando su presa. y Una pantera de gran agilidad y ferocidad, difícil de atrapar.
+Demonio Infernal,Zombi Reanimado,Un demonio que surge del infierno con poder destructivo. y Un zombi resucitado por oscuros rituales, extremadamente resistente.
+Demonio Infernal,Zombi Asesino,Un demonio que surge del infierno con poder destructivo. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Dragón de Fuego,Dragón del Trueno,Un dragón con llamas abrasadoras, su poder de ataque es imparable. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero de Tierra,Guerrero de Acero,Un guerrero de la tierra que se defiende con su escudo, gran resistencia. y Un guerrero con armadura de acero, casi imbatible.
+Zombi de la Tumba,Zombi Asesino,Un zombi que revive desde las tumbas, y está dispuesto a atacar. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Zombi de la Tumba,Zombi Reanimado,Un zombi que revive desde las tumbas, y está dispuesto a atacar. y Un zombi resucitado por oscuros rituales, extremadamente resistente.
+León Bestia,Pantera Bestia,Un león con gran agilidad que se mueve rápidamente en la jungla. y Una pantera de gran agilidad y ferocidad, difícil de atrapar.
+Diablo Nocturno,Ángel Demoníaco,Un demonio de las sombras, con un ataque devastador. y Un ángel caído con poderes demoníacos que causa estragos.
+Dragón Oscuro,Dragón del Trueno,Un dragón con escamas oscuras que causa terror en el campo. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero Bestia,Guerrero de Tierra,Un guerrero que monta una bestia, luchan juntos en batalla. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Reanimado,Zombi Asesino,Un zombi resucitado por oscuros rituales, extremadamente resistente. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Bestia Mística,León Bestia,Una bestia de gran agilidad que ataca con ferocidad. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Demonio Infernal,Zombi Destructor,Un demonio del abismo con un poder maligno enorme. y Un zombi de gran tamaño con poder de ataque superior.
+Dragón de Hielo,Dragón de Fuego,Un dragón con poderes de hielo que congela a sus enemigos. y Un dragón con llamas abrasadoras, su poder de ataque es imparable.
+Dragón de Hielo,Dragón del Trueno,Un dragón con poderes de hielo que congela a sus enemigos. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero de Fuego,Guerrero de Tierra,Un guerrero con una espada ardiente, capaz de quemar a sus enemigos. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Destructor,Zombi Asesino,Un zombi de gran tamaño con poder de ataque superior. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Zombi Destructor,Zombi Reanimado,Un zombi de gran tamaño con poder de ataque superior. y Un zombi resucitado por oscuros rituales, extremadamente resistente.
+León de la Selva,León Bestia,Un león que caza en la selva con velocidad y precisión. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Rey Demonio,Ángel Demoníaco,Un rey demoníaco con gran poder y liderazgo en el inframundo. y Un ángel caído con poderes demoníacos que causa estragos.
+Dragón Fluvial,Dragón del Trueno,Un dragón acuático que ataca desde las profundidades del mar. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero de la Luz,Guerrero de Tierra,Un guerrero con una espada brillante que lucha por la justicia. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Esquelético,Zombi Aterrador,Un zombi que ha sido despojado de su carne, pero sigue en pie. y Un zombi con una apariencia espantosa, que causa miedo a todos.
+Leopardo Bestia,León Bestia,Un leopardo con un agudo instinto de caza. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Diablo Siniestro,Ángel Demoníaco,Un demonio con un poder de ataque muy alto y malvado. y Un ángel caído con poderes demoníacos que causa estragos.
+Dragón Torbellino,Dragón del Trueno,Un dragón que genera vientos huracanados con su poderoso vuelo. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero Acorazado,Guerrero de Tierra,Un guerrero con una armadura pesada, resistente a los ataques. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Fatal,Zombi Asesino,Un zombi extremadamente rápido y peligroso para sus oponentes. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Zombi Fatal,Zombi Reanimado,Un zombi extremadamente rápido y peligroso para sus oponentes. y Un zombi resucitado por oscuros rituales, extremadamente resistente.
+Bestia Carnívora,León Bestia,Una bestia feroz que devora todo a su paso. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Ángel Caído,Ángel Demoníaco,Un ángel que cayó del cielo, ahora sirve al mal. y Un ángel caído con poderes demoníacos que causa estragos.
+Dragón de Lava,Dragón de Fuego,Un dragón que lanza lava hirviente con un gran poder destructivo. y Un dragón con llamas abrasadoras, su poder de ataque es imparable.
+Guerrero del Bosque,Guerrero de Tierra,Un guerrero que protege el bosque, con fuerza natural. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Aterrador,Zombi Asesino,Un zombi con una apariencia espantosa, que causa miedo a todos. y Un zombi muy agresivo, dispuesto a atacar sin piedad.
+Bestia Rápida,León Bestia,Una bestia de gran velocidad que sorprende a sus enemigos. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Demonio Maléfico,Ángel Demoníaco,Un demonio que siembra caos y destrucción en su camino. y Un ángel caído con poderes demoníacos que causa estragos.
+Dragón Tempestad,Dragón del Trueno,Un dragón que controla el viento y la tormenta. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero Subterráneo,Guerrero de Tierra,Un guerrero que usa la tierra como su aliado, siempre camuflándose. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Fantasmal,Zombi Aterrador,Un zombi cuya presencia es tan aterradora que paraliza a sus enemigos. y Un zombi con una apariencia espantosa, que causa miedo a todos.
+León Viento,León Bestia,Un león que controla los vientos a su alrededor para moverse rápidamente. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Reina Demoníaca,Ángel Demoníaco,Una demoníaca reina que tiene un gran poder sobre sus súbditos. y Un ángel caído con poderes demoníacos que causa estragos.
+Dragón del Volcán,Dragón del Trueno,Un dragón con la capacidad de liberar fuego volcánico a voluntad. y Un dragón que lanza rayos de gran poder, muy difícil de derrotar.
+Guerrero de Hielo,Guerrero de Tierra,Un guerrero que usa la magia del hielo para protegerse. y Un guerrero de la tierra que se defiende con su escudo, gran resistencia.
+Zombi Esquelético,Zombi Fantasmal,Un zombi con un esqueleto resquebrajado pero con gran resistencia. y Un zombi cuya presencia es tan aterradora que paraliza a sus enemigos.
+León Montaña,León Bestia,Un león que vive en las montañas, con gran fuerza física. y Un león con gran agilidad que se mueve rápidamente en la jungla.
+Dragón Viento,Dragón de Fuego,Un dragón que puede controlar el viento y lanzar tornados. y Un dragón con llamas abrasadoras, su poder de ataque es imparable.

@@ -5,7 +5,7 @@ from clases.jugador import Jugador
 class Main:
     def __init__(self):
         # Crear el mazo desde el archivo 'cartas.txt'
-        self.mazo = MazoCartas("Cartas.txt")
+        self.mazo = MazoCartas("CartasEnTexto.txt")
         self.jugadores = []
     
     def agregar_jugador(self, nombre):

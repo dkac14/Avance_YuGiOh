@@ -1,5 +1,5 @@
-from .Carta import Carta
-from .CartaMonstruo import CartaMonstruo
+from clases.Carta import Carta
+from clases.CartaMonstruo import CartaMonstruo
 
 
 class CartaMagica(Carta):

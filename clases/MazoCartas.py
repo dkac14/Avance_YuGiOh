@@ -1,6 +1,6 @@
-from .CartaMonstruo import CartaMonstruo
-from .CartaMagica import CartaMagica
-from .CartaTrampa import CartaTrampa
+from clases.CartaMonstruo import CartaMonstruo
+from clases.CartaMagica import CartaMagica
+from clases.CartaTrampa import CartaTrampa
 import random
 
 

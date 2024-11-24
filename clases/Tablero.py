@@ -1,7 +1,7 @@
-from .CartaMonstruo import CartaMonstruo
-from .CartaMagica import CartaMagica
-from .CartaTrampa import CartaTrampa
-import numpy as np
+from CartaMonstruo import CartaMonstruo
+from CartaMagica import CartaMagica
+from CartaTrampa import CartaTrampa
+#import numpy as np
 
 class Tablero:
     def __init__(self):

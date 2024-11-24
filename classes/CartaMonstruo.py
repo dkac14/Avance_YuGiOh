@@ -1,8 +1,8 @@
-from .Carta import Carta
+from classes.CartaTrampa import CartaTrampa
+from classes.Carta import Carta
+
 from enums.elemento import Elemento
 from enums.tipo_monstruo import TipoMonstruo
-from .CartaMagica import CartaMagica
-from .CartaTrampa import CartaTrampa
 
 class CartaMonstruo(Carta):
     fusiones = {}  # Diccionario compartido para fusiones

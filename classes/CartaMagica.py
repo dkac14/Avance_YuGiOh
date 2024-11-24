@@ -1,6 +1,5 @@
-from .Carta import Carta
-from .CartaMonstruo import CartaMonstruo
-
+from classes.CartaMonstruo import CartaMonstruo
+from classes.Carta import Carta
 
 class CartaMagica(Carta):
     def __init__(self, nombre, descripcion, tipo_monstruo, incremento, tipo_incremento):

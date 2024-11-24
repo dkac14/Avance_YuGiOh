@@ -1,7 +1,9 @@
-from .Tablero import Tablero
-from .CartaMonstruo import CartaMonstruo
-from .CartaMagica import CartaMagica
-from .CartaTrampa import CartaTrampa
+from classes.CartaMagica import CartaMagica
+from classes.CartaMonstruo import CartaMonstruo
+from classes.CartaTrampa import CartaTrampa
+
+from classes.MazoCartas import MazoCartas
+from classes.Tablero import Tablero
 
 class Jugador:
     def __init__(self, nombre, mazo):

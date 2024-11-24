@@ -1,63 +1,38 @@
-from clases.MazoCartas import MazoCartas
+import random
+from clases.Carta import Carta
+from clases.CartaMonstruo import CartaMonstruo
+from clases.CartaMagica import CartaMagica
+from clases.CartaTrampa import CartaTrampa
+from clases.Tablero import Tablero
 from clases.jugador import Jugador
+from clases.JugadorMaquina import JugadorMaquina
+from clases.MazoCartas import MazoCartas
+from enums.elemento import Elemento
+from enums.tipo_monstruo import TipoMonstruo
 
-
-class Main:
-    def __init__(self):
-        # Crear el mazo desde el archivo 'cartas.txt'
-        self.mazo = MazoCartas("CartasEnTexto.txt")
-        self.jugadores = []
+def main():
+    # Crear una instancia de MazoCartas
+    mazo_cartas = MazoCartas()
     
-    def agregar_jugador(self, nombre):
-        jugador = Jugador(nombre)
-        self.jugadores.append(jugador)
-        print(f"Jugador '{nombre}' añadido al juego.")
+    # Cargar y seleccionar cartas desde el archivo
+    ruta_archivo = "CartasEntexto.txt"
+    mazo_jugador1 = mazo_cartas.seleccionarMazo(ruta_archivo)
+    mazo_jugador2 = mazo_cartas.seleccionarMazo(ruta_archivo)
+    
+    # Crear jugadores
+    jugador1 = Jugador("Jugador 1", mazo_jugador1)
+    jugador2 = JugadorMaquina("Jugador Máquina", mazo_jugador2)
+    
+    # Simular el juego
+    for _ in range(5):
+        jugador1.robar_carta()
+        jugador2.robar_carta()
+    
+    jugador1.jugar_carta()
+    jugador2.jugar_carta()
+    
+    jugador1.declarar_batalla()
+    jugador2.declarar_batalla()
 
-    def iniciar_juego(self):
-        if len(self.jugadores) < 2:
-            print("Se necesitan al menos dos jugadores para comenzar el juego.")
-            return
-
-        print("¡Iniciando el juego!")
-        # Barajar el mazo antes de repartir
-        self.mazo.barajar()
-        
-        # Repartir cartas iniciales (5 cartas por jugador)
-        for jugador in self.jugadores:
-            for _ in range(5):
-                carta = self.mazo.robar_carta()
-                if carta:
-                    jugador.agregar_carta(carta)
-                else:
-                    print("No hay suficientes cartas en el mazo.")
-                    return
-
-        print("Cartas repartidas. ¡Que comience el duelo!")
-        self.mostrar_manos()
-
-    def mostrar_manos(self):
-        print("\nEstado inicial de las manos:")
-        for jugador in self.jugadores:
-            print(f"Mano de {jugador.nombre}:")
-            for carta in jugador.mano:
-                print(carta)
-            print()
-
-    def jugar(self):
-        # Iniciar el juego (carga inicial, reparto de cartas)
-        self.iniciar_juego()
-        
-        # Aquí puedes añadir la lógica de los turnos del juego.
-        print("\nTurnos no implementados. Aquí comenzaría la lógica del duelo.")
-
-# Ejemplo de uso:
 if __name__ == "__main__":
-    # Crear la instancia principal del juego
-    juego = Main()
-
-    # Añadir jugadores
-    juego.agregar_jugador("Alice")
-    juego.agregar_jugador("Bob")
-
-    # Iniciar el juego
-    juego.jugar()
+    main()

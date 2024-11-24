@@ -11,6 +11,7 @@ class MazoCartas:
     @staticmethod
     def cargar_cartas(ruta_archivo):
         mazo = []
+        ruta_archivo="CartasEnTexto.py"
         with open(ruta_archivo, 'r') as archivo:
 
             for linea in archivo:

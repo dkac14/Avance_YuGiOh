@@ -1,4 +1,4 @@
-from .carta import Carta
+from .Carta import Carta
 from enums.elemento import Elemento
 from enums.tipo_monstruo import TipoMonstruo
 

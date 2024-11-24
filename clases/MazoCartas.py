@@ -65,6 +65,3 @@ class MazoCartas:
                 mazo.append(carta)
                 Cartas_trampa += 1
         return mazo
-
-    
-

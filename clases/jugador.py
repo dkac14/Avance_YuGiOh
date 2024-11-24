@@ -8,19 +8,16 @@ class Jugador:
         self.nombre = nombre
         self.vida = 4000
         self.mazo = mazo
-        self.mano = self.inicializar_mano() 
+        self.mano = self.inicializar_mano()
         self.tablero = Tablero()
-        self.turno = 1  
 
-    # Para generar las primeras 5 cartas del mazo
     def inicializar_mano(self):
         mano_inicial = []
         for _ in range(5):
             if self.mazo:
                 mano_inicial.append(self.mazo.pop(0))
         return mano_inicial
-
-    # Roba carta por cada turno del mazo
+    
     def robar_carta(self):
         if self.mazo:
             carta = self.mazo.pop(0)
@@ -33,8 +30,7 @@ class Jugador:
         if not self.mano:
             print("No tienes cartas en tu mano para jugar.")
             return
-        
-        # Muestra cartas disponibles
+
         print("Cartas en tu mano:")
         for i, carta in enumerate(self.mano):
             print(f"{i + 1}. {carta.nombre} ({type(carta).__name__}) - {carta.descripcion}")
@@ -49,14 +45,15 @@ class Jugador:
 
         carta = self.mano[eleccion]
 
-        # Verifica que tipo de carta es y la coloca en el tablero
         if isinstance(carta, CartaMonstruo):
-            modo = input("¿En qué modo quieres jugar la carta? (ataque/defensa): ").strip().lower()
-            modo = "ataque" if modo != "defensa" else "defensa"
-            carta.en_ataque = modo == "ataque"
-            self.tablero.agregar_carta_monstruo(carta)  
-            print(f"Jugaste la carta de monstruo: {carta.nombre} en modo {modo}.")
-            
+            while modo not in ["ataque", "defensa"]:
+                modo = input("¿En qué modo quieres jugar la carta? (ataque/defensa): ").strip().lower()
+                if modo not in ["ataque", "defensa"]:
+                    print("Opción inválida. Por favor, ingresa 'ataque' o 'defensa'.")
+            if modo == "defensa":
+                carta.cambiar_modo()
+            if self.tablero.agregar_carta_monstruo(carta):
+                print(f"Jugaste {carta.nombre} en modo {'ataque' if carta.en_ataque else 'defensa'}.")
         elif isinstance(carta, CartaMagica):
             if not self.tablero.obtenerCartasMonstruo():
                 print("No hay monstruos en el campo para aplicar esta carta mágica.")
@@ -80,39 +77,74 @@ class Jugador:
 
         self.mano.remove(carta)
 
-    #Cambia la posicion uwu
-    def cambiar_posicion(self, carta):
-        if isinstance(carta, CartaMonstruo) and carta in self.tablero.tablero:
-            if carta.en_ataque is not None:  
-                carta.en_ataque = not carta.en_ataque
-                modo = "ataque" if carta.en_ataque else "defensa"
-                print(f"La carta {carta.nombre} ahora está en modo {modo}.")
-            else:
-                print("La carta no tiene un modo válido.")
-        else:
-            print("No puedes cambiar la posición de esta carta.")
-
-
-
-    def declarar_batalla(self, carta_atacante, carta_defensora=None):
-        if self.turno < 2:
+    def declarar_batalla(self):
+        if self.tablero.turno < 2:
             print("No puedes declarar batalla hasta el segundo turno.")
             return
 
-        if carta_atacante not in self.tablero.obtenerCartasMonstruo():
-            print("La carta atacante no está en tu tablero.")
+        monstruos_atacantes = self.tablero.obtener_cartas_monstruo()
+        monstruos_defensores = self.tablero.obtener_cartas_monstruo(oponente=True)
+
+        if not monstruos_atacantes:
+            print("No tienes monstruos en tu campo para declarar una batalla.")
             return
 
-        if carta_defensora and carta_defensora not in self.tablero.obtenerCartasMonstruo():
-            print("La carta defensora no está en el tablero del oponente.")
-            return
+        monstruos_ya_usados = set()
 
-        if carta_defensora:
-            if carta_atacante.ataque > carta_defensora.defensa:
-                print(f"{carta_atacante.nombre} destruyó a {carta_defensora.nombre}.")
-            elif carta_atacante.ataque < carta_defensora.defensa:
-                print(f"{carta_atacante.nombre} fue destruida en el ataque.")
+        while len(monstruos_atacantes) > len(monstruos_ya_usados):
+            print("\nMonstruos disponibles para atacar:")
+            for i, monstruo in enumerate(monstruos_atacantes):
+                if monstruo not in monstruos_ya_usados:
+                    print(f"{i + 1}. {monstruo}")
+
+            eleccion_atacante = int(input("Selecciona el número del monstruo atacante (o 0 para salir): ")) - 1
+            if eleccion_atacante == -1:
+                print("Terminaste la fase de batalla.")
+                break
+
+            if eleccion_atacante < 0 or eleccion_atacante >= len(monstruos_atacantes):
+                print("Selección inválida. Intenta nuevamente.")
+                continue
+
+            carta_atacante = monstruos_atacantes[eleccion_atacante]
+            if carta_atacante in monstruos_ya_usados:
+                print(f"{carta_atacante.nombre} ya atacó este turno.")
+                continue
+
+            print("\nOpciones de ataque:")
+            print("1. Ataque directo al jugador.")
+            print("2. Ataque a un monstruo defensor.")
+            tipo_ataque = input("Elige el tipo de ataque: ").strip()
+
+            if tipo_ataque == "1":  # Ataque directo
+                oponente = self.tablero.oponente
+                print(f"{carta_atacante.nombre} realiza un ataque directo.")
+                self.tablero.oponente.vida = carta_atacante.atacar(None, [], oponente.vida)
+
+            elif tipo_ataque == "2":  # Ataque a un monstruo defensor
+                if not monstruos_defensores:
+                    print("El oponente no tiene monstruos en el campo. Realiza un ataque directo.")
+                    continue
+
+                print("Monstruos defensores disponibles:")
+                for i, defensor in enumerate(monstruos_defensores):
+                    print(f"{i + 1}. {defensor}")
+
+                eleccion_defensor = int(input("Selecciona el número del monstruo defensor: ")) - 1
+                if eleccion_defensor < 0 or eleccion_defensor >= len(monstruos_defensores):
+                    print("Selección inválida. Intenta nuevamente.")
+                    continue
+
+                carta_defensora = monstruos_defensores[eleccion_defensor]
+                oponente = self.tablero.oponente
+                self.tablero.oponente.vida = carta_atacante.atacar(carta_defensora, oponente.tablero.obtener_cartas_trampa(), oponente.vida)
+
             else:
-                print("Ambas cartas se destruyen.")
-        else:
-            print(f"{carta_atacante.nombre} realizó un ataque directo al oponente.")
+                print("Opción inválida. Intenta nuevamente.")
+                continue
+
+            monstruos_ya_usados.add(carta_atacante)
+            continuar = input("¿Deseas continuar atacando? (sí/no): ").strip().lower()
+            if continuar != "sí":
+                print("Terminaste la fase de batalla.")
+                break

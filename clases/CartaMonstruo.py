@@ -28,8 +28,7 @@ class CartaMonstruo(Carta):
 
         # Verificar cartas trampa
         for carta_trampa in lista_cartas_trampa:
-            if isinstance(carta_trampa, CartaTrampa):
-                print(f"El ataque de {self.nombre} es detenido por {carta_trampa.nombre}.")
+            if isinstance(carta_trampa, CartaTrampa) and carta_trampa.verificar(self):
                 carta_trampa.activar(self, lista_cartas_trampa)
                 return puntos_vida_oponente
 

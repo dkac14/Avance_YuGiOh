@@ -8,6 +8,10 @@ class CartaTrampa(Carta):
         self.tipo_atributo = tipo_atributo
         self.boca_abajo = True 
 
+    def verificar(self, carta_atacante):
+        verifacion = carta_atacante.elemento == self.tipo_atributo
+        return verifacion
+
     def activar(self, carta_atacante, lista_cartas):
 
         if isinstance(carta_atacante, CartaMonstruo) and carta_atacante.elemento == self.tipo_atributo:

@@ -14,3 +14,4 @@ class CartaTrampa(Carta):
     def activar(self):
         print(f"{self.nombre} se activa y bloquea el ataque.")
 
+    

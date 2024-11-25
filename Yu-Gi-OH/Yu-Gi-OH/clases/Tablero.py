@@ -1,6 +1,7 @@
 from .CartaMonstruo import CartaMonstruo
 from .CartaMagica import CartaMagica
 from .CartaTrampa import CartaTrampa
+from .Carta import Carta
 import numpy as np
 
 class Tablero:
@@ -48,6 +49,13 @@ class Tablero:
                     trampas.append(self.tablero[fila][columna])
         return trampas
     
+    def obtenerCartasMonstruo(self):
+        monstruos = []
+        for fila in range(2):  
+            for columna in range(3):  
+                if isinstance(self.tablero[fila][columna], CartaMonstruo):
+                    monstruos.append(self.tablero[fila][columna])
+        return monstruos
 
     def obtenerCartasMágicas(self):
         magicas = []
@@ -56,3 +64,41 @@ class Tablero:
                 if isinstance(self.tablero[fila][columna], CartaMagica):
                     magicas.append(self.tablero[fila][columna])
         return magicas 
+    
+
+    def listaCartas(self):
+        cartas = []
+        for fila in range(2):  
+            for columna in range(3):  
+                    cartas.append(self.tablero[fila][columna])
+        return cartas
+
+    def __str__(self):
+        resultado = ""  
+        contador = 1
+        for fila in range(len(self.tablero)): 
+            for columna in range(len(self.tablero[fila])):  
+                carta = self.tablero[fila][columna]
+                if carta is not None and isinstance(carta, Carta):  
+                    resultado += f"[({contador}) {carta.nombre}        ]"  
+                else:  
+                    resultado += f"[({contador})        Vacío             ]"
+                contador += 1  
+            resultado += "\n"  
+        return resultado
+    
+
+    def eliminar_carta(self, carta):
+        for fila in range(2):  
+            for columna in range(3):  
+                if self.tablero[fila][columna] == carta:
+                    self.tablero[fila][columna] = None  
+                    if isinstance(carta, CartaMonstruo):
+                        self.cartas_monstruo -= 1
+                    elif isinstance(carta, (CartaMagica, CartaTrampa)):
+                        self.cartas_Magica_Trampa -= 1
+                    print(f"La carta {carta.nombre} ha sido eliminada del tablero.")
+                    return
+                
+    
+    

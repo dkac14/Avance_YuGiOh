@@ -24,7 +24,7 @@ class MazoCartas:
                     defensa = datos[4]
                     atributo = datos[5]
                     monstruo = datos[6]
-                    mazo.append(CartaMonstruo(nombre,descripcion,ataque,defensa,monstruo,atributo))
+                    mazo.append(CartaMonstruo(nombre,descripcion,int(ataque),int(defensa),monstruo,atributo))
             
                 elif tipo_carta == "Magica":
                     nombre = datos[1]
@@ -32,7 +32,7 @@ class MazoCartas:
                     aumento_ataque = datos[3]
                     aumento_defensa = datos[4]
                     tipo_monstruo = datos[5]
-                    mazo.append(CartaMagica(nombre,descripcion,aumento_ataque, aumento_defensa, tipo_monstruo))
+                    mazo.append(CartaMagica(nombre,descripcion,int(aumento_ataque), int(aumento_defensa), tipo_monstruo))
 
                 elif tipo_carta == "Trampa":
                     nombre = datos[1]
@@ -44,9 +44,8 @@ class MazoCartas:
 
 
     def seleccionarMazo(self,archivo):
-        print("x")
         c = self.cargar_cartas(archivo)
-        print("x")
+        
 
         random.shuffle(c)
         Cartas_monstruos = 0

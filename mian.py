@@ -81,7 +81,7 @@ class CartaMonstruo(Carta):
                 # Ataque vs. Ataque
                 if self.ataque > carta_defensora.ataque:
                     print(f"{self.nombre} destruye a {carta_defensora.nombre}.")
-                    carta_defensora.destruir(lista_cartas_defensora)
+                    carta_defensora.destruir(lista_cartas_defensora, carta_defensora.nombre)
                     puntos_vida_oponente -= (self.ataque - carta_defensora.ataque)
                 elif self.ataque < carta_defensora.ataque:
                     print(f"{self.nombre} es destruido por {carta_defensora.nombre}.")
@@ -108,7 +108,7 @@ class CartaMonstruo(Carta):
     def destruir(self, lista_cartas):
         if self in lista_cartas:
             lista_cartas.remove(self)
-            print(f"{self.nombre} ha sido destruida y enviada al cementerio.")
+            print(f"{self.nombre} ha sido destruido y enviado al cementerio.")
 
     def cambiar_modo(self):
         self.en_ataque = False
@@ -120,19 +120,6 @@ class CartaMonstruo(Carta):
         puntos_vida_jugador -= ataque
         print(f"{self.nombre} ataca de manera directa. El jugador pierde {ataque} puntos de vida.")
         return puntos_vida_jugador
-
-    @staticmethod
-    def cargar_fusiones(ruta_archivo):
-        with open(ruta_archivo, "r") as archivo:
-            for linea in archivo:
-                datos = linea.strip().split(",")
-                nombre_fusion = datos[0]
-                cartas_requeridas = datos[1:3]
-                descripcion = datos[3]
-                CartaMonstruo.fusiones[nombre_fusion] = {
-                    "cartas": cartas_requeridas,
-                    "descripcion": descripcion,
-                }
 
     def __str__(self):
         modo = "Ataque" if self.en_ataque else "Defensa"
@@ -770,14 +757,16 @@ def main():
     jugador1.declarar_batalla(jugador2)
     jugador2.declarar_batalla(jugador1)
 
-    while not(jugador1.vida < 0) and not(jugador2.vida) < 0 and len(jugador1.mazo) > 0 and len(jugador2.mazo) > 0:
-
+    while jugador1.vida > 0 and jugador2.vida > 0 and len(jugador1.mazo) > 0 and len(jugador2.mazo) > 0:
+        # Los jugadores roban una carta
         jugador1.robar_carta()
         jugador2.robar_carta()
 
+        # Los jugadores juegan una carta
         jugador1.jugar_carta()
         jugador2.jugar_carta()
 
+        # Los jugadores declaran batalla
         jugador1.declarar_batalla(jugador2)
         jugador2.declarar_batalla(jugador1)
 

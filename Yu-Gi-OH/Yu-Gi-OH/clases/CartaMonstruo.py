@@ -49,6 +49,7 @@ class CartaMonstruo(Carta):
                         return self.ataque - carta_defensora.defensa
                     elif self.ataque < carta_defensora.defensa:
                         print(f"{self.nombre} ha fallado el ataque. {carta_defensora.nombre} permanece en el campo.")
+                        print(f"{self.nombre} ha sido destruida.")
                         self.intento_ataque = False
                         return 0
                     else:
@@ -57,6 +58,9 @@ class CartaMonstruo(Carta):
             else:
                 print(f"{self.nombre} no puede atacar porque está en modo defensa.")
     
+
+
+
     def destruir(self, tablero, carta):
         from .Tablero import Tablero
         if (isinstance(tablero, Tablero)):

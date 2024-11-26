@@ -38,12 +38,9 @@ class Jugador:
 
         for elem in lista_cartas:
             if isinstance(elem, CartaMagica) and elem.sePuedeActivar(lista_cartas):
-                entrada = input("Existe una carta Mágica para activarla. Desea activarla? (s/n)")
-                while (entrada != "s" and entrada != "n"):
-                    entrada = input("Existe una carta Mágica para activarla. Desea activarla? (s/n)")
-                if entrada == "s":
-                    carta = elem.monstruoActivar()
-                    elem.ActivarEfecto(carta)
+                carta = elem.monstruoActivar(lista_cartas)
+                elem.ActivarEfecto(carta)
+                self.tablero.eliminar_carta(elem)
 
 
     def robar_carta(self):
@@ -80,12 +77,6 @@ class Jugador:
 
     def declarar_batalla(self, oponente):
         from .Jugador import Jugador
-        if (isinstance(oponente, Jugador)):
-            monstruos_jugador = oponente.tablero.obtenerCartasMonstruo()
-            if len(monstruos_jugador) == 0:
-                print(f"{oponente.nombre} no tiene monstruos en el tablero, ¡realizando un ataque directo a {oponente.nombre}!")
-                self.ataque_directo(oponente)
-                return
 
         if (isinstance(oponente, Jugador)):
             if len(self.tablero.obtenerCartasMonstruo()) > 0 :
@@ -97,25 +88,25 @@ class Jugador:
                 carta_atacante = self.tablero.listaCartas()[int(n_carta_ataque) - 1]
                 if isinstance(carta_atacante, CartaMonstruo):
                     print("Carta atacante: " + carta_atacante.nombre)
-            
-                objetivo = input("Seleccione la carta que desea atacar de su oponente (índice): ")
 
-                if objetivo.isdigit() and 1 <= int(objetivo) <= len(oponente.tablero.listaCartas()):
-                    cartas_oponente = oponente.tablero.listaCartas()
-                    carta_objetivo = cartas_oponente[int(objetivo) - 1]  
-                    danio = carta_atacante.atacar(carta_objetivo, cartas_oponente)
-                    if carta_atacante.intento_ataque and danio is not None:
-                        oponente.vida -= danio
-                        print(f"El daño infligido a {oponente.nombre} es de {danio}.")
-                    else:
-                        self.tablero.eliminar_carta(carta_atacante)
+                if (isinstance(oponente, Jugador)):
+                    monstruos_jugador = oponente.tablero.obtenerCartasMonstruo()
+
+                if len(monstruos_jugador) == 0:
+                    print(f"{oponente.nombre} no tiene monstruos en el tablero, ¡realizando un ataque directo a {oponente.nombre}!")
+                    danio_directo = carta_atacante.ataque
+                    oponente.vida -= danio_directo
+                    print(f"El daño infligido a {oponente.nombre} es de {danio_directo}.(Ataque directo)")
+                else:
+                    objetivo = input("Seleccione la carta que desea atacar de su oponente (índice): ")
+                    if objetivo.isdigit() and 1 <= int(objetivo) <= len(oponente.tablero.listaCartas()):
+                        cartas_oponente = oponente.tablero.listaCartas()
+                        carta_objetivo = cartas_oponente[int(objetivo) - 1]  
+                        danio = carta_atacante.atacar(carta_objetivo, oponente)
+                        if carta_atacante.intento_ataque and danio is not None:
+                            oponente.vida -= danio
+                            print(f"El daño infligido a {oponente.nombre} es de {danio}.")
+                        else:
+                            self.tablero.eliminar_carta(carta_atacante)
         else:
             print("- No se puede declarar batalla.")
-
-
-    def ataque_directo(self, oponente):
-        if (isinstance(oponente, Jugador)):
-            danio = 1000  
-            print(f"{self.nombre} ataca directamente a {oponente.nombre} con {danio} puntos de daño.")
-            oponente.vida -= danio  
-            print(f"La vida de {oponente.nombre} es ahora {oponente.vida}.")

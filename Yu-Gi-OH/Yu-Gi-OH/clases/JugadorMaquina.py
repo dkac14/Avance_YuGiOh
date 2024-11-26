@@ -60,6 +60,9 @@ class JugadorMaquina(Jugador):
                 if carta_atacante.intento_ataque:
                     oponente.vida -= danio
                     print(f"El daño infligido a {oponente.nombre} es de {danio}.")
+            else: 
+                if (carta_atacante.intento_ataque == False):
+                    self.tablero.eliminar_carta(carta_atacante)
                 
         else:
             print("- No se puede declarar batalla.")

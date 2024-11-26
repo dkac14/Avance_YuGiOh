@@ -7,7 +7,7 @@ def main():
     lista_1 = cartas.seleccionarMazo("Cartas.txt")
     lista_2 = cartas.seleccionarMazo("Cartas.txt")
 
-  
+
     jugador1 = Jugador("Chris", lista_1)
     jugadorMaquina =  JugadorMaquina("Juan", lista_2)
 

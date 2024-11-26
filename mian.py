@@ -225,16 +225,16 @@ class Jugador:
                 return
             print("Selecciona el monstruo al que deseas aplicar el efecto:")
             
-            for i, monstruo in enumerate(self.tablero.obtener_cartas_monstruo()):
-                print(f"{i + 1}. {monstruo.nombre} (ATK: {monstruo.ataque}, DEF: {monstruo.defensa})")
+            encontro = 0
+
+            for monstruo in self.tablero.obtener_cartas_monstruo():
+                if monstruo.tipo_monstruo == carta.tipo_monstruo:
+                    carta.activar_carta(monstruo)  # Activa la carta mágica en el monstruo
+                    encontro = 1
             
-            seleccion_monstruo = -1
-            while seleccion_monstruo < 0 or seleccion_monstruo >= len(self.tablero.obtener_cartas_monstruo()):
-                entrada = input("Selecciona el número del monstruo: ")
-                if entrada.isdigit():
-                    seleccion_monstruo = int(entrada) - 1
-            monstruo = self.tablero.obtener_cartas_monstruo()[seleccion_monstruo]
-            carta.activar_carta(monstruo)  # Activa la carta mágica en el monstruo
+            if encontro == 0:
+                print("No hay monstruos de este tipo en el campo para aplicar esta carta mágica.")
+            
             
         elif isinstance(carta, CartaTrampa):
             self.tablero.agregar_carta_magica_o_trampa(carta)  

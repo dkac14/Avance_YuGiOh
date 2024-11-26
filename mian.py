@@ -40,8 +40,7 @@ class CartaMagica(Carta):
 
 
     def __str__(self):
-        return (f"{self.nombre}: {self.descripcion}\n"
-                f"Efecto: Incrementa {self.tipo_incremento} de monstruos tipo {self.tipo_monstruo} en {self.incremento}.")
+        return (f"{self.nombre}: {self.descripcion}")
 
 
 class CartaMonstruo(Carta):
@@ -55,7 +54,7 @@ class CartaMonstruo(Carta):
         self.en_ataque = modo
 
     # Métodos principales
-    def atacar(self, carta_defensora, lista_cartas_trampa, puntos_vida_oponente, lista_cartas_defensora, lista_cartas_atacante):
+    def atacar(self, carta_defensora, lista_cartas_trampa, puntos_vida_oponente, lista_cartas_defensora, lista_cartas_atacante,  eleccion_atacantes, eleccion_defensor, tablero_atk, tablero_def):
         """
         Ataca a una carta defensora. Verifica cartas trampa y calcula daño según el modo de las cartas.
         """
@@ -82,10 +81,12 @@ class CartaMonstruo(Carta):
                 if self.ataque > carta_defensora.ataque:
                     print(f"{self.nombre} destruye a {carta_defensora.nombre}.")
                     carta_defensora.destruir(lista_cartas_defensora, carta_defensora.nombre)
+                    tablero_def.eliminar_carta_monstruo(eleccion_defensor)
                     puntos_vida_oponente -= (self.ataque - carta_defensora.ataque)
                 elif self.ataque < carta_defensora.ataque:
                     print(f"{self.nombre} es destruido por {carta_defensora.nombre}.")
                     self.destruir(lista_cartas_atacante)
+                    tablero_atk.eliminar_carta_monstruo(eleccion_atacantes)
                 else:
                     print(f"El ataque termina en empate. Ningún monstruo es destruido.")
             else:
@@ -93,6 +94,7 @@ class CartaMonstruo(Carta):
                 if self.ataque > carta_defensora.defensa:
                     print(f"{self.nombre} destruye a {carta_defensora.nombre} en modo defensa.")
                     carta_defensora.destruir(lista_cartas_defensora)
+                    tablero_def.eliminar_carta_monstruo(eleccion_defensor)
                 elif self.ataque < carta_defensora.defensa:
                     dano = carta_defensora.defensa - self.ataque
                     puntos_vida_oponente -= dano
@@ -124,8 +126,7 @@ class CartaMonstruo(Carta):
     def __str__(self):
         modo = "Ataque" if self.en_ataque else "Defensa"
         return (f"{self.nombre} ({self.tipo_monstruo}/{self.elemento}) - "
-                f"ATK: {self.ataque}, DEF: {self.defensa}, Modo: {modo}\n"
-                f"Descripción: {self.descripcion}")
+                f"ATK: {self.ataque}, DEF: {self.defensa}, Modo: {modo}")
     
 class CartaTrampa(Carta):
     def __init__(self, nombre, descripcion, tipo_atributo):
@@ -175,7 +176,7 @@ class Jugador:
 
     def inicializar_mano(self):
         mano_inicial = []
-        for _ in range(5):
+        for _ in range(3):
             if self.mazo:
                 mano_inicial.append(self.mazo.pop(0))
         return mano_inicial
@@ -215,7 +216,7 @@ class Jugador:
                     print("Opción inválida. Por favor, ingresa 'ataque' o 'defensa'.")
             if modo == "defensa":
                 carta.cambiar_modo()
-            print(f"{carta.en_ataque}")
+
             if self.tablero.agregar_carta_monstruo(carta):
                 print(f"Jugaste {carta.nombre} en modo {'ataque' if carta.en_ataque else 'defensa'}.")
         elif isinstance(carta, CartaMagica):
@@ -242,9 +243,6 @@ class Jugador:
         self.mano.remove(carta)
 
     def declarar_batalla(self, gamer):
-
-        print(f"Tu tablero: {self.tablero.mostrar_tablero()}")
-        print(f"Tu tablero: {gamer.tablero.mostrar_tablero()}")
 
         if self.tablero.turno < 2:
             print("No puedes declarar batalla hasta el segundo turno.")
@@ -308,7 +306,7 @@ class Jugador:
                     continue
 
                 carta_defensora = monstruos_defensores[eleccion_defensor]
-                carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.vida, monstruos_defensores, monstruos_atacantes)
+                gamer.vida = carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.vida, monstruos_defensores, monstruos_atacantes, eleccion_atacante, eleccion_defensor, self.tablero, gamer.tablero)
 
             else:
                 print("Opción inválida. Intenta nuevamente.")
@@ -335,7 +333,7 @@ class JugadorMaquina:
 
     def inicializar_mano(self):
         mano_inicial = []
-        for _ in range(5):
+        for _ in range(3):
             if self.mazo:
                 mano_inicial.append(self.mazo.pop(0))
         return mano_inicial
@@ -415,16 +413,17 @@ class JugadorMaquina:
 
             if tipo_ataque == "1":  # Ataque directo
                 print(f"{carta_atacante.nombre} realiza un ataque directo.")
-                carta_atacante.recibir_ataque_directo(gamer.vida, carta_atacante.ataque)
+                gamer.vida = carta_atacante.recibir_ataque_directo(gamer.vida, carta_atacante.ataque)
 
             elif tipo_ataque == "2":  # Ataque a un monstruo defensor
                 if not monstruos_defensores:
                     print(f"{self.nombre} no tiene monstruos defensores, realizando un ataque directo.")
                     continue
 
-                # Selección aleatoria de defensor
-                carta_defensora = random.choice(monstruos_defensores)
-                carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.vida, monstruos_defensores, monstruos_atacantes)
+                # Selección aleatoria de 
+                eleccion_defensor = random.randint(0, len(monstruos_defensores) - 1)
+                carta_defensora = monstruos_defensores[eleccion_defensor]
+                gamer.vida = carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.vida, monstruos_defensores, monstruos_atacantes, eleccion_atacante, eleccion_defensor, self.tablero, gamer.tablero)
 
             monstruos_ya_usados.add(carta_atacante)
 
@@ -680,24 +679,88 @@ class Tablero:
         """
         return [carta for carta in self.zona_magica_trampa if isinstance(carta, CartaTrampa)]
 
-    def mostrar_tablero(self):
+    def mostrar_tablero_1(self):
         """
-        Muestra las cartas actuales en el tablero.
+        Muestra las cartas actuales en el tablero con un diseño mucho más grande.
+        Este es el tablero de la persona (jugador).
         """
-        print("\nZona de monstruos:")
+        MounstroZone = []
         for i, carta in enumerate(self.zona_monstruos):
-            if carta:
-                print(f"{i + 1}. {carta} - {'Ataque' if carta.en_ataque else 'Defensa'}")
+            if carta and carta.en_ataque:
+                MounstroZone.append(f"[{i + 1}] {carta}")
+            elif carta:
+                MounstroZone.append(f"[{i + 1}] Carta en modo defensa (boca abajo)")
             else:
-                print(f"{i + 1}. (vacío)")
+                MounstroZone.append(f"[{i + 1}] (vacío)")
 
-        print("\nZona de mágicas/trampa:")
+        MagicasTrampaZone = []
         for i, carta in enumerate(self.zona_magica_trampa):
             if carta:
                 estado = "boca arriba" if not isinstance(carta, CartaTrampa) or not carta.boca_abajo else "boca abajo"
-                print(f"{i + 1}. {carta} - ({estado})")
+                MagicasTrampaZone.append(f"[{i + 1}] {carta} - ({estado})")
             else:
-                print(f"{i + 1}. (vacío)")
+                MagicasTrampaZone.append(f"[{i + 1}] (vacío)")
+
+        # Diseño del tablero grande para la persona (jugador) con mayor longitud
+        tablero = f"""
+                ║                                                                                                                                           
+                ║                                                  T A B L E R O   D E   J U E G O   ( J U G A D O R )                                       
+                ║                                                                                                                                           
+                ║                                                                                          Z O N A   D E   M O N S T R U O S                                                           
+                ║-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                ║  {MounstroZone[0]:<75} {MounstroZone[1]:<75} {MounstroZone[2]:<75}                                                 
+                ║                                                                                                                                           
+                ║                                                                                          Z O N A   D E   M Á G I C A S / T R A M P A                                              
+                ║-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                ║  {MagicasTrampaZone[0]:<75} {MagicasTrampaZone[1]:<75} {MagicasTrampaZone[2]:<75}                
+                ║                                                                                                                                           
+                ║                                                                                                                    ( Fin del Tablero )                                                           
+                ║                                                                                                                                           
+                ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+        """
+        return tablero
+
+    def mostrar_tablero_2(self):
+        """
+        Muestra las cartas actuales en el tablero con un diseño mucho más grande.
+        Este es el tablero del enemigo.
+        """
+        MounstroZone = []
+        for i, carta in enumerate(self.zona_monstruos):
+            if carta and carta.en_ataque:
+                MounstroZone.append(f"[{i + 1}] {carta}")
+            elif carta:
+                MounstroZone.append(f"[{i + 1}] Carta en modo defensa (boca abajo)")
+            else:
+                MounstroZone.append(f"[{i + 1}] (vacío)")
+
+        MagicasTrampaZone = []
+        for i, carta in enumerate(self.zona_magica_trampa):
+            if carta:
+                estado = "boca arriba" if not isinstance(carta, CartaTrampa) or not carta.boca_abajo else "boca abajo"
+                MagicasTrampaZone.append(f"[{i + 1}] {carta} - ({estado})")
+            else:
+                MagicasTrampaZone.append(f"[{i + 1}] (vacío)")
+
+        # Diseño del tablero grande para el enemigo (arriba) con mayor longitud
+        tablero = f"""
+                ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+                ║                                                                                       T A B L E R O   D E   J U E G O   ( E N E M I G O )                                       
+                ║                                                                                                                                           
+                ║                                                                                          Z O N A   D E   M Á G I C A S / T R A M P A                                     
+                ║-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                ║  {MagicasTrampaZone[0]:<75} {MagicasTrampaZone[1]:<75} {MagicasTrampaZone[2]:<75}                
+                ║                                                                                                                                           
+                ║                                                                                                        Z O N A   D E   M O N S T R U O S                                              
+                ║-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                ║  {MounstroZone[0]:<75} {MounstroZone[1]:<75} {MounstroZone[2]:<75}  
+                ║                                                                                                                                           
+                ║                                                                                                                  ( Fin del Tablero )                                                         
+                ║                                                                                                                                           
+                ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+        """
+        return tablero
+
 
     def eliminar_carta_monstruo(self, indice):
         """
@@ -747,28 +810,36 @@ def main():
     jugador2 = JugadorMaquina("Jugador MÃ¡quina", mazo_jugador2)
     
     # Simular el juego:
+
     jugador1.robar_carta()
+    jugador1.jugar_carta()
+
+    print(jugador1.tablero.mostrar_tablero_2())
+    print(jugador2.tablero.mostrar_tablero_1())
+
+    jugador1.declarar_batalla(jugador2)
+
     jugador2.robar_carta()
     jugador2.tablero.turno += 1
-    
-    jugador1.jugar_carta()
     jugador2.jugar_carta()
-    
-    jugador1.declarar_batalla(jugador2)
+    print(jugador1.tablero.mostrar_tablero_2())
+    print(jugador2.tablero.mostrar_tablero_1())
+
     jugador2.declarar_batalla(jugador1)
 
     while jugador1.vida > 0 and jugador2.vida > 0 and len(jugador1.mazo) > 0 and len(jugador2.mazo) > 0:
-        # Los jugadores roban una carta
         jugador1.robar_carta()
-        jugador2.robar_carta()
-
-        # Los jugadores juegan una carta
         jugador1.jugar_carta()
-        jugador2.jugar_carta()
-
-        # Los jugadores declaran batalla
+        print(jugador1.tablero.mostrar_tablero_2())
+        print(jugador2.tablero.mostrar_tablero_1())
         jugador1.declarar_batalla(jugador2)
+
+        jugador2.robar_carta()
+        jugador2.jugar_carta()
+        print(jugador1.tablero.mostrar_tablero_2())
+        print(jugador2.tablero.mostrar_tablero_1())
         jugador2.declarar_batalla(jugador1)
+        
 
 if __name__ == "__main__":
     main()

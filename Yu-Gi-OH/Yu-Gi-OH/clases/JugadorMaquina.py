@@ -1,82 +1,114 @@
 import random
-from .Jugador import Jugador
 from .CartaMonstruo import CartaMonstruo
 from .CartaMagica import CartaMagica
+from .CartaTrampa import CartaTrampa
 
+class JugadorMaquina:
+    def __init__(self, nombre, mazo):
+        from .Tablero import Tablero
+        self.nombre = nombre
+        self.vida = 4000
+        self.mazo = mazo
+        self.mano = self.inicializar_mano()
+        self.tablero = Tablero()
 
-class JugadorMaquina(Jugador):
-    def __init__(self, nombre, deck):
-        super().__init__(nombre, deck)
-
-    def jugar_turno(self):
-        print(f"\n{self.nombre} (Máquina) está jugando.")
-        self.cartas_iniciales()
-        self.colocar_carta_aleatoria_en_tablero()
-        self.robar_carta()
-        print(self.tablero)
-        lista_cartas = self.tablero.listaCartas()
-        for elem in lista_cartas:
-            if isinstance(elem, CartaMagica) and elem.sePuedeActivar(lista_cartas):
-                carta = elem.monstruoActivar(lista_cartas)
-                elem.ActivarEfecto(carta)
-
-
-
-    def colocar_carta_aleatoria_en_tablero(self):
-        if len(self.mano) > 0:
-            carta_a_colocar = random.choice(self.mano)  
-            print(f"{self.nombre} coloca la carta: {carta_a_colocar.nombre}")
-            self.colocar_en_tablero(carta_a_colocar)
-
-
-    def realizar_ataque(self):
-        monstruos_en_tablero = self.tablero.obtenerCartasMonstruo()
-
-        if monstruos_en_tablero:
-            carta_atacante = random.choice(monstruos_en_tablero) 
-            print(f"{self.nombre} ataca con: {carta_atacante.nombre}")
-        else:
-            print(f"{self.nombre} no tiene monstruos en el tablero para atacar.")
-
-
-    def declarar_batalla(self, oponente):
-        if len(self.tablero.obtenerCartasMonstruo()) > 0 :
-            monstruos_en_tablero = self.tablero.obtenerCartasMonstruo()
-            carta_atacante = random.choice(monstruos_en_tablero) 
-
-            if (isinstance(oponente, Jugador)):
-                cartas_oponente = oponente.tablero.listaCartas()
-
-            if isinstance(carta_atacante, CartaMonstruo):
-                print("Carta atacante: " + carta_atacante.nombre)
-            
-            carta_objetivo = None
-            for carta in cartas_oponente:
-                if (isinstance(carta, CartaMonstruo)):
-                    carta_objetivo = carta
-            
-            danio = carta_atacante.atacar(carta_objetivo, oponente)
-            if danio is not None:
-                if carta_atacante.intento_ataque:
-                    oponente.vida -= danio
-                    print(f"El daño infligido a {oponente.nombre} es de {danio}.")
-            else: 
-                if (carta_atacante.intento_ataque == False):
-                    self.tablero.eliminar_carta(carta_atacante)
-                
-        else:
-            print("- No se puede declarar batalla.")
-
-
-
+    def inicializar_mano(self):
+        mano_inicial = []
+        for _ in range(3):
+            if self.mazo:
+                mano_inicial.append(self.mazo.pop(0))
+        return mano_inicial
+    
     def robar_carta(self):
-        if len(self.deck) > 0:
-            carta_robada = self.deck.pop(0)
-            self.mano.append(carta_robada)
-            print(f"**** Carta robada: {carta_robada.nombre} ****")
+        if self.mazo:
+            carta = self.mazo.pop(0)
+            self.mano.append(carta)
+            print(f"{self.nombre} robó la carta: {carta.nombre}")
         else:
-            print("No hay cartas en el deck para robar.")
+            print(f"{self.nombre} no tiene más cartas en el mazo.")
+    
+    def jugar_carta(self):
+        if not self.mano:
+            print("No tienes cartas en tu mano para jugar.")
+            return
 
-    def cartas_iniciales(self):
-        self.mano = self.deck[:5]
-        del self.deck[:5]
+        print(f"\nCartas en la mano de {self.nombre}:")
+        for i, carta in enumerate(self.mano):
+            print(f"{i + 1}. {carta.nombre} ({type(carta).__name__}) - {carta.descripcion}")
+
+        # Selección aleatoria de carta
+        carta = random.choice(self.mano)
+
+        if isinstance(carta, CartaMonstruo):
+            # Modo aleatorio entre 'ataque' o 'defensa'
+            modo = random.choice(['ataque', 'defensa'])
+            print(f"{self.nombre} juega {carta.nombre} en modo {modo}.")
+            if modo == "defensa":
+                carta.cambiar_modo()
+            if self.tablero.agregar_carta_monstruo(carta):
+                print(f"{self.nombre} jugó {carta.nombre} en modo {'ataque' if carta.en_ataque else 'defensa'}.")
+        elif isinstance(carta, CartaMagica):
+            if not self.tablero.obtener_cartas_monstruo():
+                print(f"{self.nombre} no tiene monstruos en el campo para aplicar esta carta mágica.")
+                return
+            monstruo = random.choice(self.tablero.obtener_cartas_monstruo())  # Selección aleatoria de monstruo
+            carta.activar_carta(monstruo)
+            print(f"{self.nombre} activó la carta mágica: {carta.nombre} en {monstruo.nombre}.")
+            
+        elif isinstance(carta, CartaTrampa):
+            self.tablero.agregar_carta_magica_o_trampa(carta)
+            print(f"{self.nombre} jugó la carta trampa: {carta.nombre} (boca abajo).")
+
+        self.mano.remove(carta)
+
+    def declarar_batalla(self, gamer):
+
+        if self.tablero.turno < 2:
+            print("No puedes declarar batalla hasta el segundo turno.")
+            self.tablero.turno += 1
+            return
+
+        monstruos_atacantes = self.tablero.obtener_cartas_monstruo()
+        monstruos_defensores = gamer.tablero.obtener_cartas_monstruo()
+
+        if not monstruos_atacantes:
+            print("No tienes monstruos en tu campo para declarar una batalla.")
+            return
+
+        monstruos_ya_usados = set()
+
+        while len(monstruos_atacantes) > len(monstruos_ya_usados):
+            print("\nMonstruos disponibles para atacar:")
+            for i, monstruo in enumerate(monstruos_atacantes):
+                if monstruo not in monstruos_ya_usados:
+                    print(f"{i + 1}. {monstruo}")
+
+            # Selección aleatoria de atacante
+            eleccion_atacante = random.choice([i for i in range(len(monstruos_atacantes)) if monstruos_atacantes[i] not in monstruos_ya_usados])
+            carta_atacante = monstruos_atacantes[eleccion_atacante]
+
+            print(f"\n{self.nombre} selecciona {carta_atacante.nombre} para atacar.")
+
+            # Opciones aleatorias de ataque
+            tipo_ataque = random.choice(["1", "2"])
+
+            if tipo_ataque == "1":  # Ataque directo
+                print(f"{carta_atacante.nombre} realiza un ataque directo.")
+                gamer.vida = carta_atacante.recibir_ataque_directo(gamer.vida, carta_atacante.ataque)
+
+            elif tipo_ataque == "2":  # Ataque a un monstruo defensor
+                if not monstruos_defensores:
+                    print(f"{self.nombre} no tiene monstruos defensores, realizando un ataque directo.")
+                    continue
+
+                # Selección aleatoria de 
+                eleccion_defensor = random.randint(0, len(monstruos_defensores) - 1)
+                carta_defensora = monstruos_defensores[eleccion_defensor]
+                gamer.vida = carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.vida, self.vida, monstruos_defensores, monstruos_atacantes, eleccion_atacante, eleccion_defensor, self.tablero, gamer.tablero)
+
+            monstruos_ya_usados.add(carta_atacante)
+
+            continuar = random.choice(["sí", "no"])
+            if continuar != "sí":
+                print(f"{self.nombre} ha terminado su fase de batalla.")
+                break

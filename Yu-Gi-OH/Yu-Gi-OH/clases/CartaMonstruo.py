@@ -1,77 +1,140 @@
 from .Carta import Carta
 
 
+
+
 class CartaMonstruo(Carta):
-    def __init__(self, nombre, descripcion, ataque, defensa, tipo_monstruo, elemento):
+
+    def __init__(self, nombre, descripcion, ataque, defensa, tipo_monstruo, elemento, modo):
         super().__init__(nombre, descripcion)
         self.ataque = ataque
         self.defensa = defensa
         self.tipo_monstruo = tipo_monstruo
         self.elemento = elemento
-        self.en_ataque = True
-        self.intento_ataque = True
+        self.en_ataque = modo
 
+    # Métodos principales
+    def atacar(self, carta_enemigo, lista_cartas_trampa, lista_carta_magica, puntos_vida_oponente, puntos_vida_atacante , lista_cartas_enemigo, lista_cartas_jugador, eleccion_atacantes, eleccion_defensor, tablero_atk, tablero_def):
+        from .CartaTrampa import CartaTrampa
+        from .CartaMagica import CartaMagica
+        """
+        Ataca a una carta defensora. Verifica cartas trampa y calcula daño según el modo de las cartas.
+        """
+        # Ataque directo
+        if carta_enemigo is None:
+            puntos_vida_oponente -= self.ataque
+            print(f"Ataque directo: {self.nombre} inflige {self.ataque} puntos de daño.")
+            return puntos_vida_oponente
 
-    def enDefensa(self):
-        self.en_ataque = False
+        # Verifica si la carta enemiga es válida
+        elif not isinstance(carta_enemigo, CartaMonstruo):
+            print(f"{self.nombre} no puede atacar a la carta, ya que no es un monstruo.")
+            return puntos_vida_oponente
 
+        print(f"{self.nombre} declara un ataque a {carta_enemigo.nombre}.")
 
-    def cambioPosicion(self):
-        """Verifica si la carta puede ser jugada directamente (sin sacrificios) basado en el número de estrellas."""
-        
+        # Verificar cartas trampa
+        for i, carta_trampa in enumerate(lista_cartas_trampa):
+            if isinstance(carta_trampa, CartaTrampa) and carta_trampa.verificar(self):
+                carta_trampa.activar(self, lista_cartas_trampa, tablero_def, i)
+                return puntos_vida_oponente
 
-    def atacar(self, carta_defensora, oponente):
-        from .Jugador import Jugador
-        if isinstance(oponente, Jugador):
-            if not isinstance(carta_defensora, CartaMonstruo):
-                print("No se puede atacar a esta carta, ya que no es un monstruo.")
-                return
+        # Continuar con el ataque si no hay trampas activadas
+        if self.en_ataque:
+            if carta_enemigo.en_ataque:
+                # Ataque vs. Ataque
+                if self.ataque > carta_enemigo.ataque:
+                    print(f"{self.nombre} destruye a {carta_enemigo.nombre}.")
+                    carta_enemigo.destruir(lista_cartas_enemigo)
+                    tablero_def.eliminar_carta_monstruo(eleccion_defensor)
+                    puntos_vida_oponente -= (self.ataque - carta_enemigo.ataque)
 
-            if self.en_ataque:
-                print(f"{self.nombre} está atacando a {carta_defensora.nombre}.")
+                    # Gestionar cartas mágicas equipadas
+                    for i, carta_magica in enumerate(lista_carta_magica):
+                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == carta_enemigo:
+                            carta_magica.destruir(lista_carta_magica, lista_cartas_enemigo)
+                            tablero_def.eliminar_carta_magica_trampa(i)
 
-                if carta_defensora.en_ataque:
-                    if self.ataque > carta_defensora.ataque:
-                        print(f"{self.nombre} ha ganado el ataque. {carta_defensora.nombre} ha sido destruida.")
-                        self.destruir(oponente.tablero,carta_defensora)     
-                        return self.ataque - carta_defensora.ataque
-                    elif self.ataque < carta_defensora.ataque:
-                        print(f"{self.nombre} ha perdido el ataque. {self.nombre} ha sido destruida.")
-                        self.intento_ataque = False
-                        return None
-                    else:
-                        print(f"El ataque de {self.nombre} y {carta_defensora.nombre} es igual. Ninguna carta es destruida.")
-                        return None
+                elif self.ataque < carta_enemigo.ataque:
+                    print(f"{self.nombre} es destruido por {carta_enemigo.nombre}.")
+                    self.destruir(lista_cartas_jugador)
+                    tablero_atk.eliminar_carta_monstruo(eleccion_atacantes)
+                    puntos_vida_atacante -= (carta_enemigo.ataque - self.ataque)
+
+                    # Gestionar cartas mágicas equipadas
+                    for i, carta_magica in enumerate(lista_carta_magica):
+                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == self:
+                            carta_magica.destruir(lista_carta_magica, lista_cartas_jugador)
+                            tablero_atk.eliminar_carta_magica_trampa(i)
+                    
+                    return puntos_vida_atacante
+
                 else:
-                    if self.ataque > carta_defensora.defensa:
-                        print(f"{self.nombre} ha destruido a {carta_defensora.nombre}.")
-                        oponente.tablero.eliminar_carta(carta_defensora)
-                        return self.ataque - carta_defensora.defensa
-                    elif self.ataque < carta_defensora.defensa:
-                        print(f"{self.nombre} ha fallado el ataque. {carta_defensora.nombre} permanece en el campo.")
-                        print(f"{self.nombre} ha sido destruida.")
-                        self.intento_ataque = False
-                        return 0
-                    else:
-                        print(f"El ataque de {self.nombre} es igual a la defensa de {carta_defensora.nombre}. No ocurre nada.")
-                        return 0
+                    print(f"El ataque termina en empate. Los 2 monstruos son destruidos.")
+                    print(f"{self.nombre} destruye a {carta_enemigo.nombre}.")
+                    carta_enemigo.destruir(lista_cartas_enemigo)
+                    tablero_def.eliminar_carta_monstruo(eleccion_defensor)
+                    puntos_vida_oponente -= (self.ataque - carta_enemigo.ataque)
+
+                    # Gestionar cartas mágicas equipadas
+                    for i, carta_magica in enumerate(lista_carta_magica):
+                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == carta_enemigo:
+                            carta_magica.destruir(lista_carta_magica, lista_cartas_enemigo)
+                            tablero_def.eliminar_carta_magica_trampa(i)
+
+                    print(f"{self.nombre} es destruido por {carta_enemigo.nombre}.")
+                    self.destruir(lista_cartas_jugador)
+                    tablero_atk.eliminar_carta_monstruo(eleccion_atacantes)
+                    puntos_vida_atacante -= (carta_enemigo.ataque - self.ataque)
+
+                    # Gestionar cartas mágicas equipadas
+                    for i, carta_magica in enumerate(lista_carta_magica):
+                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == self:
+                            carta_magica.destruir(lista_carta_magica, lista_cartas_jugador)
+                            tablero_atk.eliminar_carta_magica_trampa(i)
+
             else:
-                print(f"{self.nombre} no puede atacar porque está en modo defensa.")
+                # Ataque vs. Defensa
+                if self.ataque > carta_enemigo.defensa:
+                    print(f"{self.nombre} destruye a {carta_enemigo.nombre} en modo defensa.")
+                    carta_enemigo.destruir(lista_cartas_enemigo)
+                    tablero_def.eliminar_carta_monstruo(eleccion_defensor)
+
+                    # Gestionar cartas mágicas equipadas
+                    for i, carta_magica in enumerate(lista_carta_magica):
+                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == carta_enemigo:
+                            carta_magica.destruir(lista_carta_magica, lista_cartas_enemigo)
+                            tablero_def.eliminar_carta_magica_trampa(i)
+
+                elif self.ataque < carta_enemigo.defensa:
+                    dano = carta_enemigo.defensa - self.ataque
+                    puntos_vida_atacante -= dano
+                    print(f"{self.nombre} no logra superar la defensa de {carta_enemigo.nombre}. "
+                        f"El jugador pierde {dano} puntos de vida.")
+                    return puntos_vida_atacante
+
+        else:
+            print(f"{self.nombre} no puede atacar porque está en modo defensa.")
+
+        return puntos_vida_oponente
     
+    def destruir(self, lista_cartas):
+        if self in lista_cartas:
+            lista_cartas.remove(self)
+            print(f"{self.nombre} ha sido destruido y enviado al cementerio.")
 
+    def cambiar_modo(self):
+        self.en_ataque = False
+        modal = "ataque" if self.en_ataque else "defensa"
+        print(f"{self.nombre} ahora está en modo {modal}.")
 
-
-    def destruir(self, tablero, carta):
-        from .Tablero import Tablero
-        if (isinstance(tablero, Tablero)):
-            tablero.eliminar_carta(carta) 
+    # Métodos adicionales
+    def recibir_ataque_directo(self, puntos_vida_jugador, ataque):
+        puntos_vida_jugador -= ataque
+        print(f"{self.nombre} ataca de manera directa. El jugador pierde {ataque} puntos de vida.")
+        return puntos_vida_jugador
 
     def __str__(self):
-        return (
-            f"Nombre: {self.nombre}\n"
-            f"Descripción: {self.descripcion}\n"
-            f"Ataque: {self.ataque}\n"
-            f"Defensa: {self.defensa}\n"
-            f"Tipo de Monstruo: {self.tipo_monstruo}\n"
-            f"Elemento: {self.elemento}\n"
-        )
+        modo = "Ataque" if self.en_ataque else "Defensa"
+        return (f"{self.nombre} ({self.tipo_monstruo}/{self.elemento}) - "
+                f"ATK: {self.ataque}, DEF: {self.defensa}")

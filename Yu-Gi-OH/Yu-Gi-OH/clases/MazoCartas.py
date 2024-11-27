@@ -1,6 +1,4 @@
-from .CartaMonstruo import CartaMonstruo
-from .CartaMagica import CartaMagica
-from .CartaTrampa import CartaTrampa
+
 import random
 
 
@@ -10,8 +8,11 @@ class MazoCartas:
 
     @staticmethod
     def cargar_cartas(ruta_archivo):
+        from .CartaMonstruo import CartaMonstruo
+        from .CartaMagica import CartaMagica
+        from .CartaTrampa import CartaTrampa
         mazo = []
-        with open(ruta_archivo, 'r') as archivo:
+        with open(ruta_archivo, 'r',encoding='utf-8') as archivo:
 
             for linea in archivo:
                 datos = linea.strip().split(",")
@@ -24,15 +25,15 @@ class MazoCartas:
                     defensa = datos[4]
                     atributo = datos[5]
                     monstruo = datos[6]
-                    mazo.append(CartaMonstruo(nombre,descripcion,int(ataque),int(defensa),monstruo,atributo))
+                    mazo.append(CartaMonstruo(nombre,descripcion,int(ataque),int(defensa),atributo,monstruo,True))
             
                 elif tipo_carta == "Magica":
                     nombre = datos[1]
                     descripcion = datos[2]
-                    aumento_ataque = datos[3]
-                    aumento_defensa = datos[4]
-                    tipo_monstruo = datos[5]
-                    mazo.append(CartaMagica(nombre,descripcion,int(aumento_ataque), int(aumento_defensa), tipo_monstruo))
+                    elemento = datos[3]
+                    aumento = datos[4]
+                    posicion = datos[5]
+                    mazo.append(CartaMagica(nombre,descripcion,elemento,aumento,posicion))
 
                 elif tipo_carta == "Trampa":
                     nombre = datos[1]
@@ -44,14 +45,15 @@ class MazoCartas:
 
 
     def seleccionarMazo(self,archivo):
+        from .CartaMonstruo import CartaMonstruo
+        from .CartaMagica import CartaMagica
+        from .CartaTrampa import CartaTrampa
         c = self.cargar_cartas(archivo)
         
-
         random.shuffle(c)
         Cartas_monstruos = 0
         Cartas_magicas = 0
         Cartas_trampa = 0
-
         mazo = []
         for carta in c:
             if isinstance(carta, CartaMonstruo) and Cartas_monstruos <= 20:
@@ -63,7 +65,13 @@ class MazoCartas:
             elif isinstance(carta, CartaTrampa) and Cartas_trampa <= 5:
                 mazo.append(carta)
                 Cartas_trampa += 1
-        return mazo
 
+            if Cartas_monstruos == 20 and Cartas_magicas == 5 and Cartas_trampa == 5:
+                break
+        self.cartas = mazo
+        return mazo
     
 
+    def mostrar_mazo(self):
+        for carta in self.cartas:
+            print(carta)

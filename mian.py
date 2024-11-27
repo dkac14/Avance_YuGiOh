@@ -15,6 +15,9 @@ class CartaMagica(Carta):
         self.equipada_a = None
 
     def activar_carta(self, monstruo):
+        if not isinstance(monstruo, CartaMonstruo):
+            print(f"{self.nombre} no puede equiparse porque el objetivo no es un monstruo.")
+            return False
         if monstruo.tipo_monstruo == self.tipo_monstruo:
             self.equipada_a = monstruo
             if self.tipo_incremento == "ataque":
@@ -23,11 +26,11 @@ class CartaMagica(Carta):
                 return monstruo.ataque  # Retorna los puntos de ataque totales tras el bufo.
             elif self.tipo_incremento == "defensa":
                 monstruo.defensa += self.incremento
-                print(f"{self.nombre} equipada a {monstruo.nombre}. Incrementa su {self.tipo_incremento} en {self.incremento}.")
-                return monstruo.defensa  # Retorna los puntos de defensa totales tras el bufo.
+            print(f"{self.nombre} equipada a {monstruo.nombre}. Incrementa su {self.tipo_incremento} en {self.incremento}.")
+            return True
         else:
             print(f"{self.nombre} no puede equiparse a {monstruo.nombre} porque no es del tipo {self.tipo_monstruo}.")
-            return None
+            return False
 
     def destruir(self, lista_cartas, lista_monstruos):
         if self.equipada_a:
@@ -35,7 +38,6 @@ class CartaMagica(Carta):
                 print(f"{self.nombre} ha sido destruida porque {self.equipada_a.nombre} ya no está en el campo.")
                 lista_cartas.remove(self)
                 self.equipada_a = None
-                
     def __str__(self):
         return (f"{self.nombre}: {self.descripcion}")
 
@@ -52,59 +54,36 @@ class CartaMonstruo(Carta):
         self.en_ataque = modo
 
     # Métodos principales
-    def atacar(self, carta_enemigo, lista_cartas_trampa, lista_carta_magica, puntos_vida_oponente, puntos_vida_atacante , lista_cartas_enemigo, lista_cartas_jugador, eleccion_atacantes, eleccion_defensor, tablero_atk, tablero_def):
+    def atacar(self, carta_defensora, lista_cartas_trampa, puntos_vida_oponente, lista_cartas_defensora, lista_cartas_atacante,  eleccion_atacantes, eleccion_defensor, tablero_atk, tablero_def):
         """
         Ataca a una carta defensora. Verifica cartas trampa y calcula daño según el modo de las cartas.
         """
-        # Ataque directo
-        if carta_enemigo is None:
-            puntos_vida_oponente -= self.ataque
-            print(f"Ataque directo: {self.nombre} inflige {self.ataque} puntos de daño.")
+        if carta_defensora == None:
+            puntos_vida_oponente = puntos_vida_oponente - self.ataque
             return puntos_vida_oponente
-
-        # Verifica si la carta enemiga es válida
-        elif not isinstance(carta_enemigo, CartaMonstruo):
+        
+        elif not isinstance(carta_defensora, CartaMonstruo):
             print(f"{self.nombre} no puede atacar a la carta, ya que no es un monstruo.")
             return puntos_vida_oponente
-
         print(f"{self.nombre} declara un ataque a {carta_enemigo.nombre}.")
-
         # Verificar cartas trampa
         for i, carta_trampa in enumerate(lista_cartas_trampa):
             if isinstance(carta_trampa, CartaTrampa) and carta_trampa.verificar(self):
                 carta_trampa.activar(self, lista_cartas_trampa, tablero_def, i)
                 return puntos_vida_oponente
-
         # Continuar con el ataque si no hay trampas activadas
         if self.en_ataque:
             if carta_enemigo.en_ataque:
                 # Ataque vs. Ataque
-                if self.ataque > carta_enemigo.ataque:
-                    print(f"{self.nombre} destruye a {carta_enemigo.nombre}.")
-                    carta_enemigo.destruir(lista_cartas_enemigo)
+                if self.ataque > carta_defensora.ataque:
+                    print(f"{self.nombre} destruye a {carta_defensora.nombre}.")
+                    carta_defensora.destruir(lista_cartas_defensora, carta_defensora.nombre)
                     tablero_def.eliminar_carta_monstruo(eleccion_defensor)
-                    puntos_vida_oponente -= (self.ataque - carta_enemigo.ataque)
-
-                    # Gestionar cartas mágicas equipadas
-                    for i, carta_magica in enumerate(lista_carta_magica):
-                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == carta_enemigo:
-                            carta_magica.destruir(lista_carta_magica, lista_cartas_enemigo)
-                            tablero_def.eliminar_carta_magica_trampa(i)
-
-                elif self.ataque < carta_enemigo.ataque:
-                    print(f"{self.nombre} es destruido por {carta_enemigo.nombre}.")
-                    self.destruir(lista_cartas_jugador)
+                    puntos_vida_oponente -= (self.ataque - carta_defensora.ataque)
+                elif self.ataque < carta_defensora.ataque:
+                    print(f"{self.nombre} es destruido por {carta_defensora.nombre}.")
+                    self.destruir(lista_cartas_atacante)
                     tablero_atk.eliminar_carta_monstruo(eleccion_atacantes)
-                    puntos_vida_atacante -= (carta_enemigo.ataque - self.ataque)
-
-                    # Gestionar cartas mágicas equipadas
-                    for i, carta_magica in enumerate(lista_carta_magica):
-                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == self:
-                            carta_magica.destruir(lista_carta_magica, lista_cartas_jugador)
-                            tablero_atk.eliminar_carta_magica_trampa(i)
-                    
-                    return puntos_vida_atacante
-
                 else:
                     print(f"El ataque termina en empate. Los 2 monstruos son destruidos.")
                     print(f"{self.nombre} destruye a {carta_enemigo.nombre}.")
@@ -135,20 +114,13 @@ class CartaMonstruo(Carta):
                     print(f"{self.nombre} destruye a {carta_enemigo.nombre} en modo defensa.")
                     carta_enemigo.destruir(lista_cartas_enemigo)
                     tablero_def.eliminar_carta_monstruo(eleccion_defensor)
-
-                    # Gestionar cartas mágicas equipadas
-                    for i, carta_magica in enumerate(lista_carta_magica):
-                        if isinstance(carta_magica, CartaMagica) and carta_magica.equipada_a == carta_enemigo:
-                            carta_magica.destruir(lista_carta_magica, lista_cartas_enemigo)
-                            tablero_def.eliminar_carta_magica_trampa(i)
-
-                elif self.ataque < carta_enemigo.defensa:
-                    dano = carta_enemigo.defensa - self.ataque
-                    puntos_vida_atacante -= dano
-                    print(f"{self.nombre} no logra superar la defensa de {carta_enemigo.nombre}. "
-                        f"El jugador pierde {dano} puntos de vida.")
-                    return puntos_vida_atacante
-
+                elif self.ataque < carta_defensora.defensa:
+                    dano = carta_defensora.defensa - self.ataque
+                    puntos_vida_oponente -= dano
+                    print(f"{self.nombre} no logra superar la defensa de {carta_defensora.nombre}. "
+                          f"El jugador contrario pierde {dano} puntos de vida.")
+                else:
+                    print(f"{self.nombre} no puede superar la defensa de {carta_defensora.nombre}.")
         else:
             print(f"{self.nombre} no puede atacar porque está en modo defensa.")
 
@@ -280,18 +252,9 @@ class Jugador:
             for monstruo in self.tablero.obtener_cartas_monstruo():
                 # Verifica si el tipo de monstruo coincide con el tipo de la carta mágica.
                 if monstruo.tipo_monstruo == carta.tipo_monstruo:
-                    # Activa la carta mágica en el monstruo y actualiza el atributo correspondiente.
-                    if carta.tipo_incremento == "ataque":
-                        carta.ataque = carta.activar_carta(monstruo)  # Actualiza el ataque del monstruo.
-                    elif carta.tipo_incremento == "defensa":
-                        carta.defensa = carta.activar_carta(monstruo)  # Actualiza la defensa del monstruo.
-
-                    # Agrega la carta mágica al tablero tras la activación.
-                    self.tablero.agregar_carta_magica_o_trampa(carta)
+                    carta.activar_carta(monstruo)  # Activa la carta mágica en el monstruo
                     encontro = 1
-                    print(f"{monstruo.nombre} equipado con {carta.nombre}.")
-
-            # Si no se encontró un monstruo compatible.
+            
             if encontro == 0:
                 print("No hay monstruos de este tipo en el campo para aplicar esta carta mágica.")
             
@@ -365,7 +328,7 @@ class Jugador:
                     continue
 
                 carta_defensora = monstruos_defensores[eleccion_defensor]
-                gamer.vida = carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.tablero.obtener_cartas_magicas(), gamer.vida, self.vida, monstruos_defensores, monstruos_atacantes, eleccion_atacante, eleccion_defensor, self.tablero, gamer.tablero)
+                gamer.vida = carta_atacante.atacar(carta_defensora, gamer.tablero.obtener_cartas_trampa(), gamer.vida, monstruos_defensores, monstruos_atacantes, eleccion_atacante, eleccion_defensor, self.tablero, gamer.tablero)
 
             else:
                 print("Opción inválida. Intenta nuevamente.")
@@ -880,78 +843,41 @@ def main():
     
     # Crear jugadores
     jugador1 = Jugador("Jugador 1", mazo_jugador1)
-    jugador2 = Jugador("Jugador Máquina", mazo_jugador2)
+    jugador2 = JugadorMaquina("Jugador MÃ¡quina", mazo_jugador2)
     
-    # Función para mostrar un separador de turno
-    def mostrar_separador_turno(turno, jugador):
-        print("\n" + "=" * 40)
-        print(f"              TURNO {turno}: {jugador}")
-        print("=" * 40 + "\n")
-    
-    # Función para las fases
-    def fase_tomar_carta(jugador):
-        print("[FASE: TOMAR CARTA]")
-        jugador.robar_carta()
-        print(f"{jugador.nombre} roba una carta del mazo.\n")
-    
-    def fase_principal(jugador):
-        print("[FASE: PRINCIPAL]")
-        jugador.jugar_carta()
-        print(f"{jugador.nombre} ha jugado una carta en su tablero.\n")
-    
-    def fase_batalla(jugador_atacante, jugador_defensor, turno):
-        print("[FASE: BATALLA]")
-        if turno == 1:
-            print("No se puede declarar batalla en el primer turno.\n")
-        else:
-            jugador_atacante.declarar_batalla(jugador_defensor)
-            print(f"{jugador_atacante.nombre} declara batalla.\n")
-    
-    # Inicializar turno
-    turno = 1
+    # Simular el juego:
 
-    # Simular el juego
+    jugador1.robar_carta()
+    jugador1.jugar_carta()
+
+    print(jugador1.tablero.mostrar_tablero_2())
+    print(jugador2.tablero.mostrar_tablero_1())
+
+    jugador1.declarar_batalla(jugador2)
+
+    jugador2.robar_carta()
+    jugador2.tablero.turno += 1
+    jugador2.jugar_carta()
+    print(jugador1.tablero.mostrar_tablero_2())
+    print(jugador2.tablero.mostrar_tablero_1())
+
+    jugador2.declarar_batalla(jugador1)
+
     while jugador1.vida > 0 and jugador2.vida > 0 and len(jugador1.mazo) > 0 and len(jugador2.mazo) > 0:
         # Turno del Jugador 1
         mostrar_separador_turno(turno, jugador1.nombre)
         fase_tomar_carta(jugador1)
         fase_principal(jugador1)
         print(jugador1.tablero.mostrar_tablero_2())
-        print(jugador2.tablero.mostrar_tablero_1(jugador1, jugador2))
-        fase_batalla(jugador1, jugador2, turno)
-        
-        jugador1.tablero.turno += 1
-        jugador2.tablero.turno += 1
+        print(jugador2.tablero.mostrar_tablero_1())
+        jugador1.declarar_batalla(jugador2)
 
-        if jugador2.vida <= 0:
-            break  # Termina el juego si el Jugador 2 pierde
-
-        # Turno del Jugador 2
-        mostrar_separador_turno(turno + 1, jugador2.nombre)
-        fase_tomar_carta(jugador2)
-        fase_principal(jugador2)
+        jugador2.robar_carta()
+        jugador2.jugar_carta()
         print(jugador1.tablero.mostrar_tablero_2())
-        print(jugador2.tablero.mostrar_tablero_1(jugador1, jugador2))
-        fase_batalla(jugador2, jugador1, turno + 1)
+        print(jugador2.tablero.mostrar_tablero_1())
+        jugador2.declarar_batalla(jugador1)
         
-        jugador1.tablero.turno += 1
-        jugador2.tablero.turno += 1
-
-        if jugador1.vida <= 0:
-            break  # Termina el juego si el Jugador 1 pierde
-
-        # Incrementar turno
-        turno += 2
-
-    # Mostrar el ganador
-    print("\n" + "=" * 40)
-    if jugador1.vida > jugador2.vida:
-        print(f"¡{jugador1.nombre} ha ganado el duelo!")
-    elif jugador2.vida > jugador1.vida:
-        print(f"¡{jugador2.nombre} ha ganado el duelo!")
-    else:
-        print("¡El duelo ha terminado en empate!")
-    print("=" * 40 + "\n")
 
 if __name__ == "__main__":
     main()

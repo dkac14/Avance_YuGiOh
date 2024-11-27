@@ -1,0 +1,160 @@
+Monstruo,Dragon de Ojos Rojos,Un dragon con ojos rojos que tiene gran poder de ataque.,2400,2000,FUEGO,D
+Monstruo,Demonio Oscuro,Un demonio oscuro con habilidades que drenan la vida de su oponente.,2300,1800,OSCURIDAD,O
+Monstruo,Fenix de Fuego,Un ave mitica que renace de sus cenizas.,2000,1500,FUEGO,B
+Monstruo,Guerrero de la Luz,Un guerrero feroz que lucha por la justicia.,2200,1800,LUZ,G
+Monstruo,Lobo Blanco,Un lobo salvaje con habilidades increibles.,1900,1500,TIERRA,B
+Monstruo,El Caballero del Dragon,Un caballero que monta un dragon feroz.,2600,2300,TIERRA,G
+Monstruo,Bestia Mitica,Una bestia que se oculta en las sombras.,2100,2000,OSCURIDAD,B
+Monstruo,Dragon de la Tormenta,Un dragon con el poder del viento a su disposicion.,2400,1900,VIENTO,D
+Monstruo,Zombi Renacido,Un zombi que regresa a la vida con sed de venganza.,1800,1500,OSCURIDAD,Z
+Monstruo,Soldado Magico,Un soldado con poderes magicos.,2300,2000,TIERRA,G
+Monstruo,Dragon de Fuego,Un dragon con una gran habilidad para lanzar fuego.,2200,1700,FUEGO,D
+Monstruo,Dragon Blanco de Ojos Azules,El dragon mas poderoso conocido con ojos brillantes como el cielo.,3000,2500,LUZ,D
+Monstruo,Zombi del Cementerio,Un zombi resucitado del cementerio con hambre de carne humana.,1500,1300,OSCURIDAD,Z
+Monstruo,Guerrero del Desierto,Un guerrero que lucha en las arenas calientes del desierto.,1800,1600,Tierra,G
+Monstruo,Bestia Salvaje,Una bestia feroz que se mueve rapido y ataca con fuerza.,1700,1500,TIERRA,B
+Monstruo,Demonio del Abismo,Un demonio que proviene de las profundidades del inframundo.,2500,2200,OSCURIDAD,O
+Monstruo,Dragon Rojo,Un dragon que posee la furia del fuego rojo.,2400,2000,FUEGO,D
+Monstruo,Zombi Exhumado,Un zombi que ha vuelto de la tumba con poderes oscuros.,1600,1400,OSCURIDAD,Z
+Monstruo,Guerrero Runico,Un guerrero con armadura magica que protege con poderosos hechizos.,2100,1900,TIERRA,G
+Monstruo,Bestia Mistica,Una bestia de gran agilidad y velocidad que ataca sin previo aviso.,1900,1700,FUEGO,B
+Monstruo,Demonio Infernal,Un demonio que se alimenta de las almas perdidas de sus enemigos.,2700,2400,OSCURIDAD,O
+Monstruo,Dragon Celestial,Un dragon que gobierna los cielos con su majestuosidad.,2800,2400,LUZ,D
+Monstruo,Demonio de las Sombras,Un demonio que se oculta en la oscuridad para atacar a sus enemigos.,2300,2100,OSCURIDAD,O
+Monstruo,Lobo de la Noche,Un lobo que caza bajo la luz de la luna llena.,2000,1700,OSCURIDAD,B
+Monstruo,Zombi Fantasmal,Un zombi etereo que no puede ser tocado por ataques fisicos.,1700,1500,OSCURIDAD,Z
+Monstruo,Guerrero Estelar,Un guerrero que lucha con el poder de las estrellas.,2400,2200,LUZ,G
+Monstruo,Dragon de las Profundidades,Un dragon que habita en los oceanos mas profundos.,2600,2300,AGUA,D
+Monstruo,Bestia del Trueno,Una bestia que ataca con la fuerza de una tormenta electrica.,2100,1900,VIENTO,B
+Monstruo,Demonio de la Llama,Un demonio envuelto en fuego eterno.,2700,2000,FUEGO,O
+Monstruo,Zombi Espectral,Un zombi que aparece y desaparece entre las sombras.,1500,1300,OSCURIDAD,Z
+Monstruo,Guerrero Celestial,Un guerrero bendecido con poderes divinos.,2200,2000,LUZ,G
+Monstruo,Dragon Venenoso,Un dragon que utiliza veneno para debilitar a sus enemigos.,2500,1800,TIERRA,D
+Monstruo,Bestia del Desierto,Una criatura que se oculta entre las dunas del desierto.,2000,1600,TIERRA,B
+Monstruo,Demonio Alado,Un demonio con alas que vuela sobre sus oponentes antes de atacar.,2400,2000,OSCURIDAD,O
+Monstruo,Dragon de Cristal,Un dragon con escamas tan duras como el cristal.,2700,2500,TIERRA,D
+Monstruo,Zombi Errante,Un zombi que vaga eternamente en busca de venganza.,1400,1200,OSCURIDAD,Z
+Monstruo,Guerrero del Amanecer,Un guerrero que se alza con la primera luz del dia.,2300,2100,LUZ,G
+Monstruo,Bestia del Inframundo,Una bestia que se dice proviene de las profundidades del abismo.,2200,2000,OSCURIDAD,B
+Monstruo,Dragon Escarlata,Un dragon con un aura ardiente que quema todo a su paso.,2600,2100,FUEGO,D
+Monstruo,Zombi Carronero,Un zombi que se alimenta de las sobras de las batallas.,1600,1400,OSCURIDAD,Z
+Monstruo,Guerrero Infernal,Un guerrero con una armadura forjada en el mismo infierno.,2400,2000,FUEGO,G
+Monstruo,Dragon de Hielo,Un dragon que congela todo a su alrededor con su aliento gelido.,2500,2200,AGUA,D
+Monstruo,Demonio Destructor,Un demonio que arrasa con todo lo que encuentra en su camino.,2600,2100,OSCURIDAD,O
+Monstruo,Bestia del Relampago,Una criatura que ataca con descargas electricas devastadoras.,2300,2000,VIENTO,B
+Monstruo,Zombi de las Sombras,Un zombi que se alimenta de la energia vital de sus enemigos.,1800,1600,OSCURIDAD,Z
+Monstruo,Guerrero de la Tormenta,Un guerrero que lucha con la fuerza de los rayos.,2200,1900,VIENTO,G
+Monstruo,Dragon Marino,Un dragon que domina los mares con su poder imponente.,2600,2400,AGUA,D
+Monstruo,Bestia de las Nieves,Una bestia artica con gran resistencia y fuerza.,2000,2100,AGUA,B
+Monstruo,Demonio del Vacio,Un demonio que puede absorber la energia de sus enemigos.,2400,2000,OSCURIDAD,O
+Monstruo,Dragon Volcanico,Un dragon que escupe lava ardiente para destruir a sus oponentes.,2500,2000,FUEGO,D
+Monstruo,Zombi de la Plaga,Un zombi que propaga enfermedades mortales.,1500,1300,OSCURIDAD,Z
+Monstruo,Guerrero del Sol,Un guerrero iluminado por la energia del sol.,2300,2200,LUZ,G
+Monstruo,Dragon de las Rocas,Un dragon cubierto de piedra que es dificil de derrotar.,2700,2500,TIERRA,D
+Monstruo,Bestia de las Tinieblas,Una criatura que ataca desde las sombras.,2100,2000,OSCURIDAD,B
+Monstruo,Demonio Azufrado,Un demonio envuelto en un manto de azufre y fuego.,2500,2200,FUEGO,O
+Monstruo,Zombi Toxico,Un zombi que expele vapores venenosos.,1600,1400,OSCURIDAD,Z
+Monstruo,Guerrero de la Arena,Un guerrero entrenado en las tecnicas de combate del desierto.,2000,1900,TIERRA,G
+Monstruo,Dragon de la Aurora,Un dragon que se eleva al amanecer para proteger su territorio.,2400,2300,LUZ,D
+Monstruo,Bestia del Vendaval,Una bestia agil que usa el viento para atacar rapidamente.,1800,1700,VIENTO,B
+Monstruo,Demonio del Abismo Ardiente,Un demonio que combina el poder del fuego y la oscuridad.,2600,2100,OSCURIDAD,O
+Monstruo,Zombi Inmortal,Un zombi que no puede ser destruido facilmente.,1700,1600,OSCURIDAD,Z
+Monstruo,Guerrero del Trueno,Un guerrero que canaliza la energia de las tormentas electricas.,2300,2000,VIENTO,G
+Monstruo,Dragon del Eclipse,Un dragon que aparece solo en la oscuridad del eclipse.,2800,2600,OSCURIDAD,D
+Monstruo,Bestia Celestial,Una criatura que emana una energia pura y sagrada.,2400,2200,LUZ,B
+Monstruo,Demonio Destructor del Caos,Un demonio que siembra destruccion a su paso.,2700,2300,OSCURIDAD,O
+Monstruo,Zombi Esqueleto,Un zombi formado por huesos que resiste cualquier ataque fisico.,1400,1200,OSCURIDAD,Z
+Monstruo,Guerrero Fantasma,Un guerrero que lucha desde el plano espiritual.,2000,1800,LUZ,G
+Monstruo,Dragon Cosmico,Un dragon con poderes provenientes del espacio exterior.,3000,2500,LUZ,D
+Monstruo,Bestia de Lava,Una criatura formada por magma que quema todo a su paso.,2000,1500,FUEGO,B
+Monstruo,Demonio Alado del Infierno,Un demonio con alas gigantes que cubren el cielo.,2500,2300,FUEGO,O
+Monstruo,Zombi del Purgatorio,Un zombi que arde con fuego eterno.,1800,1700,FUEGO,Z
+Monstruo,Guerrero de Cristal,Un guerrero con una armadura cristalina irrompible.,2100,2000,TIERRA,G
+Monstruo,Dragon Sombrio,Un dragon que se oculta en la penumbra para emboscar a sus enemigos.,2600,2400,OSCURIDAD,D
+Monstruo,Bestia del Cielo,Una criatura que habita en las nubes y ataca desde las alturas.,2300,2100,LUZ,B
+Monstruo,Demonio del Terror,Un demonio que infunde miedo en el corazon de sus enemigos.,2800,2200,OSCURIDAD,O
+Monstruo,Dragon de Niebla,Un dragon que puede desaparecer en las nieblas y atacar sin ser visto.,2200,2000,VIENTO,D
+Monstruo,Zombi del Abismo,Un zombi que surge del abismo con una fuerza aterradora.,1700,1500,OSCURIDAD,Z
+Monstruo,Guerrero Infernal,Un guerrero envuelto en llamas que combate con ferocidad.,2400,2100,FUEGO,G
+Monstruo,Bestia Oculta,Una bestia que se oculta en las sombras y ataca sin previo aviso.,1900,1800,OSCURIDAD,B
+Monstruo,Demonio de las Llamas,Un demonio con poderes de fuego que consume todo a su paso.,2500,2300,FUEGO,O
+Magica,Espada de Arturo,Incrementa en 200 el ataque de monstruos de tipo Guerrero.,G,200,ataque
+Magica,Escudo de Chamelote,Incrementa en 200 la defensa de monstruos de tipo Guerrero.,G,200,defensa
+Magica,Capa Mistica,Incrementa en 150 el ataque de monstruos de tipo Dragon.,D,150,ataque
+Magica,Amuletos de Fuego,Incrementa en 100 la defensa de monstruos de tipo Dragon.,D,100,defensa
+Magica,Anillo Zombi,Incrementa en 100 el ataque de monstruos de tipo Zombi.,Z,100,ataque
+Magica,Escudo Oscuro,Incrementa en 150 la defensa de monstruos de tipo Zombi.,Z,150,defensa
+Magica,Espada del Viento,Incrementa en 250 el ataque de monstruos de tipo Bestia.,B,250,ataque
+Magica,Escudo del Viento,Incrementa en 150 la defensa de monstruos de tipo Bestia.,B,150,defensa
+Magica,Poder del Guerrero,Incrementa en 300 el ataque de monstruos de tipo Guerrero.,G,300,ataque
+Magica,Coraza de Hierro,Incrementa en 250 la defensa de monstruos de tipo Guerrero.,G,250,defensa
+Magica,Baculo del Lanzador,Incrementa en 200 el ataque de monstruos de tipo Lanzador de Conjuros.,L,200,ataque
+Magica,Escudo Protector,Incrementa en 150 la defensa de monstruos de tipo Lanzador de Conjuros.,L,150,defensa
+Magica,Anillo del Demonio,Incrementa en 250 el ataque de monstruos de tipo Demonio.,O,250,ataque
+Magica,Amparo Demoniaco,Incrementa en 200 la defensa de monstruos de tipo Demonio.,O,200,defensa
+Magica,Luz Sagrada,Incrementa en 150 el ataque de monstruos de tipo Lanzador de Conjuros.,L,150,ataque
+Magica,Fuego Infernal,Incrementa en 100 la defensa de monstruos de tipo Dragon.,D,100,defensa
+Magica,Garras del Guerrero,Incrementa en 180 el ataque de monstruos de tipo Guerrero.,G,180,ataque
+Magica,Espada del Dragon,Incrementa en 250 el ataque de monstruos de tipo Dragon.,D,250,ataque
+Magica,Escudo de la Bestia,Incrementa en 200 la defensa de monstruos de tipo Bestia.,B,200,defensa
+Magica,Amuleto Zombi,Incrementa en 150 el ataque de monstruos de tipo Zombi.,Z,150,ataque
+Magica,Fuerza Demoniaca,Incrementa en 200 el ataque de monstruos de tipo Demonio.,O,200,ataque
+Magica,Llama de Fuego,Incrementa en 100 la defensa de monstruos de tipo Dragon.,D,100,defensa
+Magica,Corazon del Guerrero,Incrementa en 250 la defensa de monstruos de tipo Guerrero.,G,250,defensa
+Magica,Flecha del Viento,Incrementa en 200 el ataque de monstruos de tipo Bestia.,B,200,ataque
+Magica,Escudo de los Muertos,Incrementa en 200 la defensa de monstruos de tipo Zombi.,Z,200,defensa
+Magica,Espada del Guerrero,Incrementa en 180 el ataque de monstruos de tipo Guerrero.,G,180,ataque
+Magica,Escudo de Fuego,Incrementa en 150 la defensa de monstruos de tipo Dragon.,D,150,defensa
+Magica,Poder del Zombi,Incrementa en 120 el ataque de monstruos de tipo Zombi.,Z,120,ataque
+Magica,Luz del Guerrero,Incrementa en 200 la defensa de monstruos de tipo Guerrero.,G,200,defensa
+Magica,Escudo Viento,Incrementa en 180 la defensa de monstruos de tipo Bestia.,B,180,defensa
+Magica,Espada de los Muertos,Incrementa en 250 el ataque de monstruos de tipo Zombi.,Z,250,ataque
+Magica,Escudo de Dragon,Incrementa en 200 la defensa de monstruos de tipo Dragon.,D,200,defensa
+Magica,Baculo del Guerrero,Incrementa en 220 el ataque de monstruos de tipo Guerrero.,G,220,ataque
+Magica,Escudo del Lanzador,Incrementa en 200 la defensa de monstruos de tipo Lanzador de Conjuros.,L,200,defensa
+Magica,Espada del Zombi,Incrementa en 170 el ataque de monstruos de tipo Zombi.,Z,170,ataque
+Magica,Amuleto de Luz,Incrementa en 150 el ataque de monstruos de tipo Lanzador de Conjuros.,L,150,ataque
+Magica,Espada Oscura,Incrementa en 220 el ataque de monstruos de tipo Demonio.,O,220,ataque
+Magica,Escudo del Lanzador de Conjuros,Incrementa en 180 la defensa de monstruos de tipo Lanzador de Conjuros.,L,180,defensa
+Magica,Espada Demoniaca,Incrementa en 250 el ataque de monstruos de tipo Demonio.,O,250,ataque
+Magica,Escudo de Zombi,Incrementa en 210 la defensa de monstruos de tipo Zombi.,Z,210,defensa
+Trampa,Espejo de Oscuridad,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Escudo de Luz,Impide el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Tormenta de Tierra,Impide el ataque de monstruos con atributo TIERRA.,TIERRA
+Trampa,Barrera de Agua,Impide el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Flama Protectora,Impide el ataque de monstruos con atributo FUEGO.,FUEGO
+Trampa,Ciclon de Viento,Impide el ataque de monstruos con atributo VIENTO.,VIENTO
+Trampa,Sombra Protectora,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Rayo Protector,Impide el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Terremoto Barricada,Impide el ataque de monstruos con atributo TIERRA.,TIERRA
+Trampa,Ola Tranquilizadora,Impide el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Llama Apagada,Impide el ataque de monstruos con atributo FUEGO.,FUEGO
+Trampa,Vendaval Silencioso,Impide el ataque de monstruos con atributo VIENTO.,VIENTO
+Trampa,Escudo Tenebroso,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Luz Cegadora,Impide el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Muro de Roca,Impide el ataque de monstruos con atributo TIERRA.,TIERRA
+Trampa,Prision de Hielo,Impide el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Campo Desertico,Impide el ataque de monstruos con atributo FUEGO.,FUEGO
+Trampa,Tornado Barrera,Impide el ataque de monstruos con atributo VIENTO.,VIENTO
+Trampa,Cadena Oscura,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Rayo Purificador,Impide el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Viento Cortante,Impide el ataque de monstruos con atributo VIENTO.,VIENTO
+Trampa,Reflejo de Luz,Detiene el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Obsidiana Negra,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Trampa Acuática,Detiene el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Escudo Luminiscente,Impide el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Espejo Ígneo,Detiene el ataque de monstruos con atributo FUEGO.,FUEGO
+Trampa,Lluvia de Tierra,Impide el ataque de monstruos con atributo TIERRA.,TIERRA
+Trampa,Resistencia del Dragón,Detiene el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Sombra Oscura,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Reflejo del Viento,Detiene el ataque de monstruos con atributo VIENTO.,VIENTO
+Trampa,Escudo del Guerrero,Impide el ataque de monstruos con atributo TIERRA.,TIERRA
+Trampa,Alma de Fuego,Detiene el ataque de monstruos con atributo FUEGO.,FUEGO
+Trampa,Trampa Celestial,Impide el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Red Venenosa,Detiene el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Fuerza del Demonio,Impide el ataque de monstruos con atributo OSCURIDAD.,OSCURIDAD
+Trampa,Luz de Dragón,Detiene el ataque de monstruos con atributo LUZ.,LUZ
+Trampa,Puño del Zombi,Impide el ataque de monstruos con atributo TIERRA.,TIERRA
+Trampa,Llamarada Infernal,Detiene el ataque de monstruos con atributo FUEGO.,FUEGO
+Trampa,Defensa Profunda,Impide el ataque de monstruos con atributo AGUA.,AGUA
+Trampa,Espíritu del Viento,Detiene el ataque de monstruos con atributo VIENTO.,VIENTO
